@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    /* font-family: 'Raleway', sans-serif; */
+}
+
+.albums {
+    padding: 20px;
+    /* display: flex; */
+    /* gap: 20px; */
+    /* padding: 20px; */
+}
+
+.album {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    scroll-snap-align: center;
+    flex: 0 0 100%;
+}
+
+h4.song-name {font-size: 14px;margin: 5px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;line-height: 1.25;overflow: hidden;}
+
+
+.albumDetail {
+    text-transform: capitalize;
+    font-family: 'Raleway', sans-serif;
+}
+
+.thumbS {height: 80px;border-radius: 10px;position: relative;overflow: hidden;flex: 0 0 80px;box-shadow: -5px 5px 10px rgb(0 0 0 / 10%);width: 100%;}
+img.album-image, img.song-image {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: none;
+    max-height: 100%;
+    text-align: center;
+    transform: translate(-50%,-50%);
+}
+
+
+ul {
+    list-style: none;
+}
+
+ul.artistL {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.artist {
+    display: flex;
+}
+
+.x-scroll {
+    position: relative;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    overflow-x: visible;
+    scroll-snap-type: x mandatory;
+}
+
+.artistL li {
+    scroll-snap-align: start;
+    width: 100%;
+}
+
+.albumContent {
+    /* width: 100%; */
+    overflow: hidden;
+}
+.x-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  ul.artistL li {
+    padding: 5px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    color: #222;
+    font-size: 13px;
+}
+
+.song-lang {
+    padding: 5px;
+    font-size: 13px;
+}
+
+.albumsong {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+}
+
+.albumS {
+    display: flex;
+}
+
+.songI {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: -5px 5px 10px rgb(0 0 0 / 10%);
+}
+.C{
+    text-align: center;
+}
+
+.song {
+    width: 100%;
+    scroll-snap-align: start;
+    flex: 0 0 20%;
+    padding: 20px;
+}
+
+.song-name {
+    font-size: 14px;
+    margin: 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
