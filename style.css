@@ -34,6 +34,10 @@ h2{
     scroll-snap-align: center;
     flex: 0 0 100%;
 }
+form{
+    position: relative;
+    margin: 0 0 20px;
+}
 
 h4.song-name {font-size: 14px;margin: 5px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;line-height: 1.25;overflow: hidden;}
 
@@ -44,7 +48,7 @@ h4.song-name {font-size: 14px;margin: 5px;display: -webkit-box;-webkit-box-orien
 }
 
 .thumbS {height: 80px;border-radius: 10px;position: relative;overflow: hidden;flex: 0 0 80px;width: 100%;}
-img.album-image, img.song-image {
+img.album-image, img.song-image, img.song-image {
     display: block;
     position: absolute;
     top: 50%;

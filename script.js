@@ -9,10 +9,13 @@ const seekBar = document.getElementById("seek");
 let total_duration = document.getElementById("duration");
 let current_time = document.getElementById("current-time");
 
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
 
 const apiEndpoints = {
     homepage: 'https://saavn.me/modules?language=hindi,punjabi,bhojpuri',
-    search: 'https://saavn.me/search/songs?query=imagine+dragons',
+    search: 'https://saavn.me/search/songs?query=',
     albums: 'https://saavn.me/search/albums?query=rockstar',
     albumsData: 'https://saavn.me/albums?id=',
     songurl: 'https://saavn.me/songs?id='
@@ -182,7 +185,7 @@ fetchData('homepage')
                                                     // Set the last download URL as the src attribute for the audio element
                                                     music.src = lastDownloadUrl.link;
                                                     playfunc();
-                                                    
+
 
                                                 } else {
                                                     console.error('Download URL not found.');
@@ -218,52 +221,205 @@ fetchData('homepage')
 
 
 
-    // music player funcs
+
+// search func
 
 
-    const playfunc = () => {
-        music.play();
-        playButton.style.display = "none";
-        pauseButton.style.display = "inline-flex";
-    };
+// searchInput.addEventListener('input', () => {
+//     // Get the search query from the input field
+//     const query = searchInput.value;
 
-    playButton.addEventListener('click', () => {
-        music.play();
-        playButton.style.display = "none";
-        pauseButton.style.display = "inline-flex";
-    });
+//     // Clear previous search results
+//     searchResults.innerHTML = '';
 
-    // Add click event listener to the pause button
-    pauseButton.addEventListener('click', () => {
-        music.pause();
-        playButton.style.display = "inline-flex";
-        pauseButton.style.display = "none";
-    });
+//     // Check if the search query is not empty
+//     if (query.trim() !== '') {
+//         // Build the search API URL
+//         const searchUrl = apiEndpoints.search + encodeURIComponent(query);
 
-    seekBar.addEventListener("input", function () {
-        const progress = seekBar.value / 100;
-        music.currentTime = progress * music.duration;
-    });
+//         // Fetch search results based on the query
+//         fetch(searchUrl)
+//             .then(response => response.json())
+//             .then(searchData => {
+//                 console.log(searchData);
+//                 // Process and display the search results
+//                 displaySearchResults(searchData);
+//             })
+//             .catch(error => {
+//                 console.error(error);
+//             });
+//     }
+// });
 
-    seekBar.addEventListener("mouseup", function () {
-        music.play();
-    });
+// function displaySearchResults(data) {
+//     // Check if there are search results
+//     if (data && Array.isArray(data.results) && data.results.length > 0) {
+//         data.results.forEach(result => {
+//             // Create a div for each search result
+//             const resultDiv = document.createElement('div');
+//             resultDiv.classList.add('search-result');
 
-    music.addEventListener("timeupdate", function () {
-        const {duration} = event.srcElement;
-        const currentMinutes = Math.floor(music.currentTime / 60);
-        const currentSeconds = Math.floor(music.currentTime % 60);
-        const durationMinutes = Math.floor(music.duration / 60);
-        const durationSeconds = Math.floor(music.duration % 60);
-        current_time.innerHTML = currentMinutes + ":" + currentSeconds; 
-        if(duration){
-            total_duration.innerHTML = durationMinutes + ":" + durationSeconds;
-        }
-        const progress = music.currentTime / music.duration;
-        progressBar.style.width = progress * 100 + "%";
-        seekBar.value = progress * 100;
-        if (currentSeconds < 10) {
-            current_time.innerHTML = currentMinutes + ":" + `0${currentSeconds}`;
-        }
-    })
-    
+//             // Display the search result data as needed
+//             resultDiv.textContent = result.name;
+
+//             // Append the result div to the search results container
+//             searchResults.appendChild(resultDiv);
+//         });
+//     } else {
+//         // No search results found
+//         searchResults.textContent = 'No results found';
+//     }
+// }
+
+
+
+
+
+
+// search2 func
+
+
+
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value;
+    searchResults.innerHTML = '';
+
+    if (query.trim() !== '') {
+        const searchUrl = apiEndpoints.search + encodeURIComponent(query);
+
+        fetch(searchUrl)
+            .then(response => response.json())
+            .then(searchData => {
+
+                const results = searchData.data.results;
+                console.log(searchData);
+
+                searchResults.innerHTML = '';
+
+                if (Array.isArray(results) && results.length > 0) {
+                    results.forEach(result => {
+                        const resultDiv = document.createElement('div');
+                        resultDiv.classList.add('search-result');
+                        resultDiv.textContent = result.name;
+
+                        resultDiv.addEventListener('click', () => {
+                            searchResults.innerHTML = ''; // Clear previous search results
+
+                            // Create elements for displaying the song information
+                            const resultInfo = document.createElement('div');
+                            const resultImage = document.createElement('img');
+                            resultImage.classList.add('song-image');
+                            const resultName = document.createElement('p');
+                            const resultLanguage = document.createElement('p');
+                            const resultArtists = document.createElement('p');
+                            const resultYear = document.createElement('p');
+
+                            resultImage.src = result.image[2].link; // Using the 500x500 image link
+                            resultName.textContent = `Name: ${result.name}`;
+                            resultLanguage.textContent = `Language: ${result.language}`;
+                            resultArtists.textContent = `Artists: ${result.primaryArtists}`;
+                            resultYear.textContent = `Year: ${result.year}`;
+
+
+                            const imagediv = document.createElement('div');
+                            imagediv.classList.add('songI');
+                            imagediv.appendChild(resultImage);
+
+                            // Append the elements to the resultInfo div
+                            resultInfo.appendChild(imagediv);
+                            resultInfo.appendChild(resultName);
+                            resultInfo.appendChild(resultLanguage);
+                            resultInfo.appendChild(resultArtists);
+                            resultInfo.appendChild(resultYear);
+
+                            // Set the audio source to the last download URL
+                            const lastDownloadUrl = result.downloadUrl[result.downloadUrl.length - 1];
+                            if (lastDownloadUrl) {
+                                const audioElement = document.getElementById('audiosrc');
+                                music.src = lastDownloadUrl.link;
+                                music.play(); // Auto-play the audio
+                                playfunc();
+                            }
+
+                            // Append the resultInfo to the searchResults container
+                            searchResults.appendChild(resultInfo);
+                        });
+
+                        searchResults.appendChild(resultDiv);
+                    });
+                } else {
+                    searchResults.textContent = 'No results found';
+                }
+
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// music player funcs
+
+
+const playfunc = () => {
+    music.play();
+    playButton.style.display = "none";
+    pauseButton.style.display = "inline-flex";
+};
+
+playButton.addEventListener('click', () => {
+    music.play();
+    playButton.style.display = "none";
+    pauseButton.style.display = "inline-flex";
+});
+
+// Add click event listener to the pause button
+pauseButton.addEventListener('click', () => {
+    music.pause();
+    playButton.style.display = "inline-flex";
+    pauseButton.style.display = "none";
+});
+
+seekBar.addEventListener("input", function () {
+    const progress = seekBar.value / 100;
+    music.currentTime = progress * music.duration;
+});
+
+seekBar.addEventListener("mouseup", function () {
+    music.play();
+});
+
+music.addEventListener("timeupdate", function () {
+    const { duration } = event.srcElement;
+    const currentMinutes = Math.floor(music.currentTime / 60);
+    const currentSeconds = Math.floor(music.currentTime % 60);
+    const durationMinutes = Math.floor(music.duration / 60);
+    const durationSeconds = Math.floor(music.duration % 60);
+    current_time.innerHTML = currentMinutes + ":" + currentSeconds;
+    if (duration) {
+        total_duration.innerHTML = durationMinutes + ":" + durationSeconds;
+    }
+    const progress = music.currentTime / music.duration;
+    progressBar.style.width = progress * 100 + "%";
+    seekBar.value = progress * 100;
+    if (currentSeconds < 10) {
+        current_time.innerHTML = currentMinutes + ":" + `0${currentSeconds}`;
+    }
+})
+
