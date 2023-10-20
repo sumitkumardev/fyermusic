@@ -11,7 +11,7 @@ let current_time = document.getElementById("current-time");
 
 
 const apiEndpoints = {
-    homepage: 'https://saavn.me/modules?language=hindi,bhojpuri',
+    homepage: 'https://saavn.me/modules?language=hindi,punjabi,bhojpuri',
     search: 'https://saavn.me/search/songs?query=imagine+dragons',
     albums: 'https://saavn.me/search/albums?query=rockstar',
     albumsData: 'https://saavn.me/albums?id=',

@@ -10,17 +10,41 @@
 </head>
 
 <body>
-    <div class="x-scroll albums">
-        <div id="albumL" class="albumsong"></div>
+    <div class="albums">
+        <h2>Trending</h2>
+        <div id="albumL" class="x-scroll albumsong"></div>
+        <div id="albumS" class="x-scroll albumS"></div>
+        <div class="searchLive">
+            <form>
+                <input aria-label="Search this blog" autocomplete="off" id="searchInput" minlength="3" name="q"
+                    placeholder="e.g. Travel" required="required" type="text">
+                <button aria-label="Search Button" class="searchButton" role="button" type="submit">
+                    <svg class="line" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <circle cx="11.36167" cy="11.36167" r="9.36167"></circle>
+                            <line x1="22" x2="19.9332" y1="22" y2="19.9332"></line>
+                        </g>
+                    </svg>
+                </button>
+                <button aria-label="Search Close" class="close" role="button" type="reset">
+                    <svg class="line" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                        <line x1="6" x2="18" y1="6" y2="18"></line>
+                    </svg>
+                </button>
+            </form>
+        </div>
     </div>
-    <div id="albumS" class="x-scroll albumS"></div>
+
+
+
     <div class="musicP">
         <!-- <audio id="audio">
             <source src="" id="audiosrc" />
         </audio> -->
         <audio id="audiosrc">
             Your browser does not support the audio element.
-          </audio>
+        </audio>
         <div class="progress-bar">
             <div id="progress-bar"></div>
             <input type="range" id="seek" min="0" max="100" value="0">
