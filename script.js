@@ -1,8 +1,15 @@
 const albumLElement = document.getElementById('albumL');
 const albumSElement = document.getElementById('albumS');
 // const play = document.getElementById("play");
+const music = document.getElementById('audiosrc');
 const playButton = document.getElementById('play');
 const pauseButton = document.getElementById('pause');
+const progressBar = document.getElementById("progress-bar");
+const seekBar = document.getElementById("seek");
+let total_duration = document.getElementById("duration");
+let current_time = document.getElementById("current-time");
+
+
 const apiEndpoints = {
     homepage: 'https://saavn.me/modules?language=hindi,english',
     search: 'https://saavn.me/search/songs?query=imagine+dragons',
@@ -163,7 +170,7 @@ fetchData('homepage')
                                     // Add a click event listener to the songDiv elements
                                     songDiv.addEventListener('click', () => {
                                         const songUrl = apiEndpoints.songurl + songId;
-                                    
+
                                         fetch(songUrl)
                                             .then(response => response.json())
                                             .then(songData => {
@@ -173,31 +180,9 @@ fetchData('homepage')
 
                                                 if (lastDownloadUrl) {
                                                     // Set the last download URL as the src attribute for the audio element
-                                                    const music = document.getElementById('audiosrc');
                                                     music.src = lastDownloadUrl.link;
-
-                                                    const playfunc = () =>{
-                                                        music.play();
-                                                        playButton.style.display = "none";
-                                                        pauseButton.style.display = "inline-flex";
-                                                      }; 
-
                                                     playfunc();
-
-                                                    playButton.addEventListener('click', () => {
-                                                        music.play();
-                                                        playButton.style.display = "none";
-                                                        pauseButton.style.display = "inline-flex";
-                                                    });
                                                     
-                                                    // Add click event listener to the pause button
-                                                    pauseButton.addEventListener('click', () => {
-                                                        music.pause();
-                                                        playButton.style.display = "inline-flex";
-                                                        pauseButton.style.display = "none";
-                                                    });
-
-
 
                                                 } else {
                                                     console.error('Download URL not found.');
@@ -208,15 +193,7 @@ fetchData('homepage')
                                             });
                                     });
 
-
-
-
-
-
                                 });
-
-
-
 
                             }
                         })
@@ -231,7 +208,62 @@ fetchData('homepage')
             });
         }
     })
+
     .catch(error => {
         console.error(error);
     });
 
+
+
+
+
+
+    // music player funcs
+
+
+    const playfunc = () => {
+        music.play();
+        playButton.style.display = "none";
+        pauseButton.style.display = "inline-flex";
+    };
+
+    playButton.addEventListener('click', () => {
+        music.play();
+        playButton.style.display = "none";
+        pauseButton.style.display = "inline-flex";
+    });
+
+    // Add click event listener to the pause button
+    pauseButton.addEventListener('click', () => {
+        music.pause();
+        playButton.style.display = "inline-flex";
+        pauseButton.style.display = "none";
+    });
+
+    seekBar.addEventListener("input", function () {
+        const progress = seekBar.value / 100;
+        music.currentTime = progress * music.duration;
+    });
+
+    seekBar.addEventListener("mouseup", function () {
+        music.play();
+    });
+
+    music.addEventListener("timeupdate", function () {
+        const {duration} = event.srcElement;
+        const currentMinutes = Math.floor(music.currentTime / 60);
+        const currentSeconds = Math.floor(music.currentTime % 60);
+        const durationMinutes = Math.floor(music.duration / 60);
+        const durationSeconds = Math.floor(music.duration % 60);
+        current_time.innerHTML = currentMinutes + ":" + currentSeconds; 
+        if(duration){
+            total_duration.innerHTML = durationMinutes + ":" + durationSeconds;
+        }
+        const progress = music.currentTime / music.duration;
+        progressBar.style.width = progress * 100 + "%";
+        seekBar.value = progress * 100;
+        if (currentSeconds < 10) {
+            current_time.innerHTML = currentMinutes + ":" + `0${currentSeconds}`;
+        }
+    })
+    
