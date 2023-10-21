@@ -235,7 +235,7 @@ input[type="range"] {
 }
 
 input[type="range"] {
-	color: #ef233c;
+	color: #303030;
 	--thumb-height: 10px;
 	--track-height: 0.125em;
 	--track-color: rgba(0, 0, 0, 0.2);
