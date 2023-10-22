@@ -40,16 +40,19 @@
 
 
     <div class="musicP">
-        <!-- <audio id="audio">
-            <source src="" id="audiosrc" />
-        </audio> -->
+        <div class="songp">
+            <div class="audioI">
+                <img id="audioimage" class="album-image"/>
+            </div>
+            <h4 id="audiotitle" class="song-name"></h4>
+        </div>
         <audio id="audiosrc">
             Your browser does not support the audio element.
         </audio>
         <div class="progress-bar">
             <div id="progress-bar" class="progress"></div>
             <input type="range" id="seek" min="0" max="100" value="0">
-            
+
         </div>
         <div class="music-timer">
             <div id="current-time">0:00</div>
@@ -122,5 +125,6 @@
     </div>
 </body>
 <script src="script.js"></script>
-
+<script src="scriptreverb.js"></script>
+<script src="http://reverbjs.org/reverb.js"></script>
 </html>

@@ -124,7 +124,7 @@ ul.artistL {
     list-style: none;
     margin: 0;
     gap: 20px;
-    margin: 0 0 20px;
+    /* margin: 0 0 20px; */
 }
 
 .songI {
@@ -164,6 +164,7 @@ ul.artistL {
     background: #fef;
     padding: 20px;
     border-radius: 1rem 1rem 0 0;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
 }
 
 .music-controls {
@@ -226,9 +227,61 @@ svg .line, svg.line {
     width: 16px;
     height: 16px;
 }
+.songR {
+    width: 100%;
+    scroll-snap-align: start;
+    flex: 0 0 20%;
+    padding: 15px;
+    background: #fefe;
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.songR .songI {
+    width: 100%;
+    padding-top: 100%;
+    margin: 0 0 15px;
+}
+.thumb {
+    padding: 25px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 4px 0 10px rgb(0 0 0 / 10%);
+}
+
+.search-result {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    scroll-snap-align: center;
+    margin-bottom: 15px;
+    background: #f8f8f8;
+    border-radius: 10px;
+}
+
+.resultDetails h4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
 
 
-/* === range theme and appearance === */
+
+
+
+
+
+
+
+
+
+
+
+/* player seek bar  */
 input[type="range"] {
 	font-size: 1.5rem;
 	width: 12.5em;
@@ -244,11 +297,6 @@ input[type="range"] {
 	--clip-edges: 0.125em;
 }
 
-
-
-
-
-/* === range commons === */
 input[type="range"] {
 	position: relative;
 	background: #fff0;
@@ -265,7 +313,6 @@ input[type="range"]:disabled {
 	cursor: not-allowed;
 }
 
-/* === WebKit specific styles === */
 input[type="range"],
 input[type="range"]::-webkit-slider-runnable-track,
 input[type="range"]::-webkit-slider-thumb {
