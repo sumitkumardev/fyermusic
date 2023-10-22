@@ -305,47 +305,47 @@ searchInput.addEventListener('input', () => {
 
                     const results = searchData.data.results;
                     console.log(searchData);
-    
+
                     searchResults.innerHTML = '';
-    
+
                     if (Array.isArray(results) && results.length > 0) {
                         results.forEach(result => {
                             const resultDiv = document.createElement('div');
                             resultDiv.classList.add('search-result');
-    
-    
+
+
                             const resultN = document.createElement('h4');
                             resultN.textContent = result.name;
-    
+
                             const songthumb = document.createElement('div');
                             songthumb.classList.add('thumb');
-    
+
                             const songT = document.createElement('img');
                             songT.classList.add('song-image');
                             songT.src = result.image[0].link;
-    
+
                             const yeardiv = document.createElement('div');
                             yeardiv.classList.add('songY');
                             yeardiv.textContent = result.year;
-    
+
                             const resultDetails = document.createElement('div');
                             resultDetails.classList.add('resultDetails');
-    
-    
-    
+
+
+
                             songthumb.appendChild(songT);
                             resultDiv.appendChild(songthumb);
-    
+
                             resultDetails.appendChild(resultN);
                             resultDetails.appendChild(yeardiv);
                             resultDiv.appendChild(resultDetails);
-    
-    
-    
-    
+
+
+
+
                             resultDiv.addEventListener('click', () => {
                                 searchResults.innerHTML = ''; // Clear previous search results
-    
+
                                 // Create elements for displaying the song information
                                 const resultInfo = document.createElement('div');
                                 resultInfo.classList.add('songR');
@@ -355,60 +355,60 @@ searchInput.addEventListener('input', () => {
                                 resultName.classList.add('song-name');
                                 const resultLanguage = document.createElement('div');
                                 resultLanguage.classList.add('song-lang');
-    
+
                                 const albumDetail = document.createElement('div');
                                 albumDetail.classList.add('albumDetail');
                                 const albumContent = document.createElement('div');
                                 albumContent.classList.add('albumContent');
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
                                 const artistsList = document.createElement('ul');
                                 artistsList.classList.add('artistL');
-    
-    
+
+
                                 const artists = result.primaryArtists.split(', '); // Split the artist names by comma and space
                                 artists.forEach(artistName => {
                                     const artistListItem = document.createElement('li');
                                     artistListItem.textContent = artistName;
                                     artistsList.appendChild(artistListItem);
                                 });
-    
+
                                 const artistsdiv = document.createElement('div');
                                 artistsdiv.classList.add('artist', 'x-scroll');
                                 artistsdiv.appendChild(artistsList);
-    
-    
+
+
                                 resultImage.src = result.image[2].link; // Using the 500x500 image link
                                 // musicimage.src = result.image[2].link; // Using the 500x500 image link
                                 // musictitle.textContent = `${result.name}`;
                                 resultName.textContent = `${result.name}`;
                                 resultLanguage.textContent = `${result.language} ‧ ${result.year}`;
                                 // resultArtists.textContent = `${result.primaryArtists}`;
-    
-    
+
+
                                 const imagediv = document.createElement('div');
                                 imagediv.classList.add('songI');
                                 imagediv.appendChild(resultImage);
-    
+
                                 // Append the image element to the custom div
                                 albumContent.appendChild(resultName);
                                 albumContent.appendChild(albumDetail);
-    
+
                                 albumDetail.appendChild(resultLanguage);
                                 albumDetail.appendChild(artistsdiv);
                                 albumContent.appendChild(albumDetail);
-    
+
                                 // Append the elements to the resultInfo div
                                 resultInfo.appendChild(imagediv);
                                 resultInfo.appendChild(albumContent);
                                 // resultInfo.appendChild(albumDetail);
                                 // resultInfo.appendChild(albumDetail);
-    
+
                                 // Set the audio source to the last download URL
                                 const lastDownloadUrl = result.downloadUrl[result.downloadUrl.length - 1];
                                 if (lastDownloadUrl) {
@@ -417,23 +417,23 @@ searchInput.addEventListener('input', () => {
                                     music.play(); // Auto-play the audio
                                     playfunc();
                                 }
-    
+
                                 // Append the resultInfo to the searchResults container
                                 searchResults.appendChild(resultInfo);
                             });
-    
+
                             searchResults.appendChild(resultDiv);
                         });
                     } else {
                         searchResults.textContent = 'No results found';
                     }
-    
+
                 })
                 .catch(error => {
                     console.error(error);
                 });
         }
-    }, 250); // Adjust the delay as needed
+    }, 300); // Adjust the delay as needed
 });
 
 
@@ -505,15 +505,27 @@ music.addEventListener("timeupdate", function () {
     const currentSeconds = Math.floor(music.currentTime % 60);
     const durationMinutes = Math.floor(music.duration / 60);
     const durationSeconds = Math.floor(music.duration % 60);
-    current_time.innerHTML = currentMinutes + ":" + currentSeconds;
+    // current_time.innerHTML = currentMinutes + ":" + currentSeconds;
+    // if (duration) {
+    //     total_duration.innerHTML = durationMinutes + ":" + durationSeconds;
+    // }
+    // if (durationSeconds < 10) {
+    // total_duration.innerHTML = durationMinutes + ":" + `0${durationSeconds}`;
+    // }
     if (duration) {
-        total_duration.innerHTML = durationMinutes + ":" + durationSeconds;
+        total_duration.innerHTML = durationMinutes + ":" + (durationSeconds < 10 ? `0${durationSeconds}` : durationSeconds);
     }
+    const formattedSeconds = currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds;
+    current_time.innerHTML = `${currentMinutes}:${formattedSeconds}`;
+
+
+
     const progress = music.currentTime / music.duration;
     progressBar.style.width = progress * 100 + "%";
     seekBar.value = progress * 100;
-    if (currentSeconds < 10) {
-        current_time.innerHTML = currentMinutes + ":" + `0${currentSeconds}`;
-    }
+    // if (currentSeconds < 10) {
+    //     current_time.innerHTML = currentMinutes + ":" + `0${currentSeconds}`;
+    // }
+    // total_duration.innerHTML = durationMinutes + ":" + `0${durationSeconds}`
 })
 
