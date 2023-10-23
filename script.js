@@ -13,6 +13,7 @@ let current_time = document.getElementById("current-time");
 
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
+const searchResultD = document.getElementById('searchResultD');
 
 
 const apiEndpoints = {
@@ -138,7 +139,7 @@ fetchData('homepage')
                         .then(albumData => {
                             // Clear the previously displayed songs
                             albumSElement.innerHTML = '';
-                            searchResults.innerHTML = ''; // Clear previous search results
+                            // searchResults.innerHTML = ''; // Clear previous search results
 
                             // Check if there are songs in the response
                             const songsData = albumData.data.songs;
@@ -214,6 +215,8 @@ fetchData('homepage')
 
 
                                                 searchResults.innerHTML = ''; // Clear previous search results
+                                                searchResultD.innerHTML = ''; // Clear previous search results
+
 
                                                 // Create elements for displaying the song information
                                                 const resultInfo = document.createElement('div');
@@ -278,7 +281,7 @@ fetchData('homepage')
 
 
 
-                                                searchResults.appendChild(resultInfo);
+                                                searchResultD.appendChild(resultInfo);
 
 
 
@@ -404,6 +407,8 @@ searchInput.addEventListener('input', () => {
 
                             resultDiv.addEventListener('click', () => {
                                 searchResults.innerHTML = ''; // Clear previous search results
+                                searchResultD.innerHTML = ''; // Clear previous search results
+
 
                                 // Create elements for displaying the song information
                                 const resultInfo = document.createElement('div');
@@ -476,7 +481,7 @@ searchInput.addEventListener('input', () => {
                                 }
 
                                 // Append the resultInfo to the searchResults container
-                                searchResults.appendChild(resultInfo);
+                                searchResultD.appendChild(resultInfo);
                             });
 
                             searchResults.insertBefore(resultDiv, searchResults.lastChild);
