@@ -23,6 +23,12 @@ const apiEndpoints = {
     songurl: 'https://saavn.me/songs?id='
 };
 
+function decodeHTMLEntities(text) {
+    const parser = new DOMParser();
+    const decodedString = parser.parseFromString(`<!doctype html><body>${text}`, 'text/html').body.textContent;
+    return decodedString;
+}
+
 // Function to fetch data from a given API endpoint
 async function fetchData(apiName) {
     try {
@@ -51,7 +57,7 @@ fetchData('homepage')
 fetchData('homepage')
     .then(homepageData => {
         // Check if there are albums in the response
-        const albums = homepageData.data.albums;
+        const albums = homepageData.data.trending.albums;
 
         if (Array.isArray(albums) && albums.length > 0) {
             // Loop through the albums and create a div for each album
@@ -66,7 +72,8 @@ fetchData('homepage')
                 albumDiv.classList.add('album');
 
                 // Extract the album details
-                const albumName = album.name;
+                // const albumName = album.name;
+                const albumName = decodeHTMLEntities(album.name);
                 const albumImage = album.image[1].link; // Using the first image link
                 const artists = album.artists;
                 const language = album.language;
@@ -181,7 +188,8 @@ fetchData('homepage')
                                             .then(songData => {
                                                 console.log(songData);
                                                 // Get the last download URL from the album data
-                                                const songName = song.name;
+                                                // const songName = song.name;
+                                                const songName = decodeHTMLEntities(song.name);
                                                 const songImage = song.image[1].link;
                                                 const lastDownloadUrl = songData.data[0].downloadUrl[songData.data[0].downloadUrl.length - 1];
                                                 console.log(lastDownloadUrl);
