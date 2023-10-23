@@ -125,9 +125,9 @@ ul.artistL {
 .albumS {
     display: flex;
     list-style: none;
-    margin: 0;
+    /* margin: 0; */
     gap: 20px;
-    /* margin: 0 0 20px; */
+    margin: 0 0 20px;
 }
 
 .songI {
@@ -147,7 +147,7 @@ ul.artistL {
     scroll-snap-align: start;
     flex: 0 0 20%;
     padding: 15px;
-    background: #fefe;
+    background: #f4f6ff;
     border-radius: 1rem;
 }
 
@@ -163,10 +163,10 @@ ul.artistL {
     width: 100%;
     position: fixed;
     bottom: 0;
-    background: #fef;
-    padding: 20px;
+    background: #faf9ff;
+    padding: 10px 20px 10px;
     border-radius: 1rem 1rem 0 0;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    box-shadow: 0 0 0px 1px rgb(0 0 0 / 10%);
 }
 
 .music-controls {
@@ -232,12 +232,16 @@ svg .line, svg.line {
 .songR {
     width: 100%;
     scroll-snap-align: start;
-    flex: 0 0 20%;
     padding: 15px;
-    background: #fefe;
+    background: #f4f6ff;
     border-radius: 1rem;
     position: relative;
     overflow: hidden;
+}
+.songR .albumContent {
+    background: #faf9ff;
+    padding: 5px;
+    border-radius: 10px;
 }
 
 .songR .songI {
@@ -250,20 +254,23 @@ svg .line, svg.line {
     border-radius: 10px;
     position: relative;
     overflow: hidden;
-    box-shadow: 4px 0 10px rgb(0 0 0 / 10%);
+    box-shadow: 2px 0 10px rgb(0 0 0 / 5%);
 }
 
 .search-result {
     width: 100%;
     display: flex;
-    gap: 15px;
+    /* gap: 15px; */
     align-items: center;
     scroll-snap-align: center;
     margin-bottom: 15px;
-    background: #f7f7f7;
+    background: #faf9ff;
     border-radius: 10px;
 }
-
+.resultDetails {
+    font-size: 13px;
+    padding: 0 15px;
+}
 .resultDetails h4 {
     display: -webkit-box;
     -webkit-box-orient: vertical;

@@ -149,7 +149,8 @@ fetchData('homepage')
                                     songDiv.classList.add('song');
 
                                     // Extract song details
-                                    const songName = song.name;
+                                    // const songName = song.name;
+                                    const songName = decodeHTMLEntities(song.name);
                                     const songId = song.id;
                                     const songImage = song.image[1].link; // Using the first image link
                                     const songDuration = song.duration;
@@ -323,7 +324,8 @@ searchInput.addEventListener('input', () => {
 
 
                             const resultN = document.createElement('h4');
-                            resultN.textContent = result.name;
+                            const resultname = decodeHTMLEntities(result.name);
+                            resultN.textContent = resultname;
 
                             const songthumb = document.createElement('div');
                             songthumb.classList.add('thumb');
@@ -394,7 +396,9 @@ searchInput.addEventListener('input', () => {
                                 resultImage.src = result.image[2].link; // Using the 500x500 image link
                                 // musicimage.src = result.image[2].link; // Using the 500x500 image link
                                 // musictitle.textContent = `${result.name}`;
-                                resultName.textContent = `${result.name}`;
+                                const songName = decodeHTMLEntities(result.name);
+
+                                resultName.textContent = songName;
                                 resultLanguage.textContent = `${result.language} ‧ ${result.year}`;
                                 // resultArtists.textContent = `${result.primaryArtists}`;
 
