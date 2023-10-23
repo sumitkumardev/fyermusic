@@ -138,6 +138,7 @@ fetchData('homepage')
                         .then(albumData => {
                             // Clear the previously displayed songs
                             albumSElement.innerHTML = '';
+                            searchResults.innerHTML = ''; // Clear previous search results
 
                             // Check if there are songs in the response
                             const songsData = albumData.data.songs;
@@ -194,11 +195,116 @@ fetchData('homepage')
                                                 const songImage = song.image[1].link;
                                                 const lastDownloadUrl = songData.data[0].downloadUrl[songData.data[0].downloadUrl.length - 1];
                                                 console.log(lastDownloadUrl);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                searchResults.innerHTML = ''; // Clear previous search results
+
+                                                // Create elements for displaying the song information
+                                                const resultInfo = document.createElement('div');
+                                                resultInfo.classList.add('songR');
+                                                const resultImage = document.createElement('img');
+                                                resultImage.classList.add('song-image');
+                                                const resultName = document.createElement('h4');
+                                                resultName.classList.add('song-name');
+                                                const resultLanguage = document.createElement('div');
+                                                resultLanguage.classList.add('song-lang');
+                
+                                                const albumDetail = document.createElement('div');
+                                                albumDetail.classList.add('albumDetail');
+                                                const albumContent = document.createElement('div');
+                                                albumContent.classList.add('albumContent');
+                
+                
+                
+                                                const artistsList = document.createElement('ul');
+                                                artistsList.classList.add('artistL');
+                
+                
+                                                const artists = song.primaryArtists.split(', '); // Split the artist names by comma and space
+                                                artists.forEach(artistName => {
+                                                    const artistListItem = document.createElement('li');
+                                                    artistListItem.textContent = artistName;
+                                                    artistsList.appendChild(artistListItem);
+                                                });
+                
+                                                const artistsdiv = document.createElement('div');
+                                                artistsdiv.classList.add('artist', 'x-scroll');
+                                                artistsdiv.appendChild(artistsList);
+                
+                
+                                                resultImage.src = song.image[2].link; // Using the 500x500 image link
+                                                // musicimage.src = result.image[2].link; // Using the 500x500 image link
+                                                // musictitle.textContent = `${result.name}`;
+                                                // const songName = decodeHTMLEntities(result.name);
+                
+                                                resultName.textContent = songName;
+                                                resultLanguage.textContent = `${song.language} ‧ ${song.year}`;
+                                                // resultArtists.textContent = `${result.primaryArtists}`;
+                
+                
+                                                const imagediv = document.createElement('div');
+                                                imagediv.classList.add('songI');
+                                                imagediv.appendChild(resultImage);
+                
+                                                // Append the image element to the custom div
+                                                albumContent.appendChild(resultName);
+                                                albumContent.appendChild(albumDetail);
+                
+                                                albumDetail.appendChild(resultLanguage);
+                                                albumDetail.appendChild(artistsdiv);
+                                                albumContent.appendChild(albumDetail);
+                
+                                                // Append the elements to the resultInfo div
+                                                resultInfo.appendChild(imagediv);
+                                                resultInfo.appendChild(albumContent);
+                                                // resultInfo.appendChild(albumDetail);
+                                                // resultInfo.appendChild(albumDetail);
+
+
+
+                                                searchResults.appendChild(resultInfo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                 if (lastDownloadUrl) {
                                                     // Set the last download URL as the src attribute for the audio element
                                                     music.src = lastDownloadUrl.link;
-                                                    musictitle.textContent = `${songName}`;
-                                                    musicimage.src = songImage;
+                                                    // musictitle.textContent = `${songName}`;
+                                                    // musicimage.src = songImage;
                                                     playfunc();
 
 
@@ -233,63 +339,6 @@ fetchData('homepage')
 
 
 
-
-
-
-
-// search func
-
-
-// searchInput.addEventListener('input', () => {
-//     // Get the search query from the input field
-//     const query = searchInput.value;
-
-//     // Clear previous search results
-//     searchResults.innerHTML = '';
-
-//     // Check if the search query is not empty
-//     if (query.trim() !== '') {
-//         // Build the search API URL
-//         const searchUrl = apiEndpoints.search + encodeURIComponent(query);
-
-//         // Fetch search results based on the query
-//         fetch(searchUrl)
-//             .then(response => response.json())
-//             .then(searchData => {
-//                 console.log(searchData);
-//                 // Process and display the search results
-//                 displaySearchResults(searchData);
-//             })
-//             .catch(error => {
-//                 console.error(error);
-//             });
-//     }
-// });
-
-// function displaySearchResults(data) {
-//     // Check if there are search results
-//     if (data && Array.isArray(data.results) && data.results.length > 0) {
-//         data.results.forEach(result => {
-//             // Create a div for each search result
-//             const resultDiv = document.createElement('div');
-//             resultDiv.classList.add('search-result');
-
-//             // Display the search result data as needed
-//             resultDiv.textContent = result.name;
-
-//             // Append the result div to the search results container
-//             searchResults.appendChild(resultDiv);
-//         });
-//     } else {
-//         // No search results found
-//         searchResults.textContent = 'No results found';
-//     }
-// }
-
-
-
-
-
 // new search to counter 429 error
 
 
@@ -315,7 +364,7 @@ searchInput.addEventListener('input', () => {
                     const results = searchData.data.results;
                     console.log(searchData);
 
-                    searchResults.innerHTML = '';
+                    // searchResults.innerHTML = '';
 
                     if (Array.isArray(results) && results.length > 0) {
                         results.forEach(result => {
@@ -370,10 +419,6 @@ searchInput.addEventListener('input', () => {
                                 albumDetail.classList.add('albumDetail');
                                 const albumContent = document.createElement('div');
                                 albumContent.classList.add('albumContent');
-
-
-
-
 
 
 
@@ -434,7 +479,8 @@ searchInput.addEventListener('input', () => {
                                 searchResults.appendChild(resultInfo);
                             });
 
-                            searchResults.appendChild(resultDiv);
+                            searchResults.insertBefore(resultDiv, searchResults.lastChild);
+                            // searchResults.appendChild(resultDiv);
                         });
                     } else {
                         searchResults.textContent = 'No results found';
