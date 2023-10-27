@@ -358,8 +358,8 @@ searchInput.addEventListener('input', () => {
     // Set a new timer to fetch results after a delay (e.g., 200ms)
     debounceTimer = setTimeout(() => {
         if (query.trim() !== '') {
-            const searchUrl = apiEndpoints.search + encodeURIComponent(query);
-
+            const searchUrl = apiEndpoints.search + encodeURIComponent(query) + '&limit=5';
+            console.log(searchUrl);
             fetch(searchUrl)
                 .then(response => response.json())
                 .then(searchData => {
