@@ -227,52 +227,52 @@ fetchData('homepage')
                                                 resultName.classList.add('song-name');
                                                 const resultLanguage = document.createElement('div');
                                                 resultLanguage.classList.add('song-lang');
-                
+
                                                 const albumDetail = document.createElement('div');
                                                 albumDetail.classList.add('albumDetail');
                                                 const albumContent = document.createElement('div');
                                                 albumContent.classList.add('albumContent');
-                
-                
-                
+
+
+
                                                 const artistsList = document.createElement('ul');
                                                 artistsList.classList.add('artistL');
-                
-                
+
+
                                                 const artists = song.primaryArtists.split(', '); // Split the artist names by comma and space
                                                 artists.forEach(artistName => {
                                                     const artistListItem = document.createElement('li');
                                                     artistListItem.textContent = artistName;
                                                     artistsList.appendChild(artistListItem);
                                                 });
-                
+
                                                 const artistsdiv = document.createElement('div');
                                                 artistsdiv.classList.add('artist', 'x-scroll');
                                                 artistsdiv.appendChild(artistsList);
-                
-                
+
+
                                                 resultImage.src = song.image[2].link; // Using the 500x500 image link
                                                 // musicimage.src = result.image[2].link; // Using the 500x500 image link
                                                 // musictitle.textContent = `${result.name}`;
                                                 // const songName = decodeHTMLEntities(result.name);
-                
+
                                                 resultName.textContent = songName;
                                                 resultLanguage.textContent = `${song.language} ‧ ${song.year}`;
                                                 // resultArtists.textContent = `${result.primaryArtists}`;
-                
-                
+
+
                                                 const imagediv = document.createElement('div');
                                                 imagediv.classList.add('songI');
                                                 imagediv.appendChild(resultImage);
-                
+
                                                 // Append the image element to the custom div
                                                 albumContent.appendChild(resultName);
                                                 albumContent.appendChild(albumDetail);
-                
+
                                                 albumDetail.appendChild(resultLanguage);
                                                 albumDetail.appendChild(artistsdiv);
                                                 albumContent.appendChild(albumDetail);
-                
+
                                                 // Append the elements to the resultInfo div
                                                 resultInfo.appendChild(imagediv);
                                                 resultInfo.appendChild(albumContent);
@@ -390,6 +390,28 @@ searchInput.addEventListener('input', () => {
                             yeardiv.classList.add('songY');
                             yeardiv.textContent = result.year;
 
+                            const artistsList = document.createElement('ul');
+                            artistsList.classList.add('artistL');
+
+                            const artists = result.primaryArtists.split(', '); // Split the artist names by comma and space
+                            artists.forEach(artistName => {
+                                const artistListItem = document.createElement('li');
+                                artistListItem.textContent = artistName;
+                                artistsList.appendChild(artistListItem);
+                            });
+
+
+
+
+
+                            const artistsdiv = document.createElement('div');
+                            artistsdiv.classList.add('artist', 'x-scroll');
+                            artistsdiv.appendChild(artistsList);
+
+
+
+
+
                             const resultDetails = document.createElement('div');
                             resultDetails.classList.add('resultDetails');
 
@@ -400,6 +422,7 @@ searchInput.addEventListener('input', () => {
 
                             resultDetails.appendChild(resultN);
                             resultDetails.appendChild(yeardiv);
+                            resultDetails.appendChild(artistsdiv);
                             resultDiv.appendChild(resultDetails);
 
 
@@ -484,8 +507,8 @@ searchInput.addEventListener('input', () => {
                                 searchResultD.appendChild(resultInfo);
                             });
 
-                            searchResults.insertBefore(resultDiv, searchResults.lastChild);
-                            // searchResults.appendChild(resultDiv);
+                            // searchResults.insertBefore(resultDiv, searchResults.firstChild);
+                            searchResults.appendChild(resultDiv);
                         });
                     } else {
                         searchResults.textContent = 'No results found';

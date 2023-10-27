@@ -108,6 +108,10 @@ ul.artistL {
     color: #222;
     font-size: 13px;
 }
+.resultDetails ul.artistL li {
+    padding: 0;
+    background: transparent;
+}
 
 .song-lang {
     padding: 5px;
@@ -266,16 +270,19 @@ svg .line, svg.line {
     margin-bottom: 15px;
     background: #faf9ff;
     border-radius: 10px;
+    padding: 10px;
 }
 .resultDetails {
     font-size: 13px;
     padding: 0 15px;
+    overflow: hidden;
 }
 .resultDetails h4 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
+    line-height: 1.25;
 }
 
 
