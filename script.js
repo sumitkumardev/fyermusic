@@ -14,10 +14,13 @@ let current_time = document.getElementById("current-time");
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 const searchResultD = document.getElementById('searchResultD');
+const forwardN = document.getElementById('next');
+
 
 
 const apiEndpoints = {
-    homepage: 'https://saavn.me/modules?language=hindi,punjabi,bhojpuri',
+    homepage: 'https://saavn.me/modules?language=hindi,punjabi',
+    forwardS: 'https://saavn.me/modules?language=',
     search: 'https://saavn.me/search/songs?query=',
     albums: 'https://saavn.me/search/albums?query=rockstar',
     albumsData: 'https://saavn.me/albums?id=',
@@ -104,7 +107,7 @@ fetchData('homepage')
 
                 // Extract and display the artist names in <li> elements
                 artists.forEach(artist => {
-                    const artistName = artist.name;
+                    const artistName = decodeHTMLEntities(artist.name);
                     const artistListItem = document.createElement('li');
                     artistListItem.textContent = artistName;
                     artistsList.appendChild(artistListItem);
@@ -196,20 +199,6 @@ fetchData('homepage')
                                                 const songImage = song.image[1].link;
                                                 const lastDownloadUrl = songData.data[0].downloadUrl[songData.data[0].downloadUrl.length - 1];
                                                 console.log(lastDownloadUrl);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -359,7 +348,7 @@ searchInput.addEventListener('input', () => {
     debounceTimer = setTimeout(() => {
         if (query.trim() !== '') {
             const searchUrl = apiEndpoints.search + encodeURIComponent(query) + '&limit=5';
-            console.log(searchUrl);
+            // console.log(searchUrl);
             fetch(searchUrl)
                 .then(response => response.json())
                 .then(searchData => {
@@ -371,6 +360,7 @@ searchInput.addEventListener('input', () => {
 
                     if (Array.isArray(results) && results.length > 0) {
                         results.forEach(result => {
+
                             const resultDiv = document.createElement('div');
                             resultDiv.classList.add('search-result');
 
@@ -396,7 +386,7 @@ searchInput.addEventListener('input', () => {
                             const artists = result.primaryArtists.split(', '); // Split the artist names by comma and space
                             artists.forEach(artistName => {
                                 const artistListItem = document.createElement('li');
-                                artistListItem.textContent = artistName;
+                                artistListItem.textContent = decodeHTMLEntities(artistName);
                                 artistsList.appendChild(artistListItem);
                             });
 
@@ -431,6 +421,165 @@ searchInput.addEventListener('input', () => {
                             resultDiv.addEventListener('click', () => {
                                 searchResults.innerHTML = ''; // Clear previous search results
                                 searchResultD.innerHTML = ''; // Clear previous search results
+                                // console.log(result);
+
+
+
+                                // const searchUrl = apiEndpoints.forwardS + encodeURIComponent(query) + '&limit=5';
+                                const forwardS = apiEndpoints.forwardS + `${result.language}`;
+                                // console.log(forwardS);
+
+
+                                // console.log(searchUrl);
+                                fetch(forwardS)
+                                    .then(response => response.json())
+                                    .then(forward => {
+                                        const forwards = forward.data.trending.songs;
+                                        forwardN.addEventListener('click', () => {
+                                            // console.log(forwardN);
+                                            // songurl
+                                            if (Array.isArray(forwards) && forwards.length > 0) {
+                                                forwards.forEach(forward => {
+                                                    const songurl = apiEndpoints.songurl + `${forward.id}`;
+                                                    console.log(songurl);
+
+                                                    fetch(songurl)
+                                                        .then(response => response.json())
+                                                        .then(forward => {
+                                                            const forwards = forward.data[0];
+                                                            // console.log(forwards);
+                                                            // console.log(forward);
+                                                            // Get the last download URL from the album data
+                                                            // const songName = song.name;
+                                                            // const forward = forward.data.trending.songs;
+                                                            const songName = decodeHTMLEntities(forwards.name);
+                                                            // const songImage = forward.image[1].link;
+                                                            const lastDownloadUrl = forward.data[0].downloadUrl[forward.data[0].downloadUrl.length - 1];
+                                                            // console.log(lastDownloadUrl);
+            
+            
+            
+            
+                                                            searchResults.innerHTML = ''; // Clear previous search results
+                                                            searchResultD.innerHTML = ''; // Clear previous search results
+            
+            
+                                                            // Create elements for displaying the song information
+                                                            const resultInfo = document.createElement('div');
+                                                            resultInfo.classList.add('songR');
+                                                            const resultImage = document.createElement('img');
+                                                            resultImage.classList.add('song-image');
+                                                            const resultName = document.createElement('h4');
+                                                            resultName.classList.add('song-name');
+                                                            const resultLanguage = document.createElement('div');
+                                                            resultLanguage.classList.add('song-lang');
+            
+                                                            const albumDetail = document.createElement('div');
+                                                            albumDetail.classList.add('albumDetail');
+                                                            const albumContent = document.createElement('div');
+                                                            albumContent.classList.add('albumContent');
+            
+            
+            
+                                                            const artistsList = document.createElement('ul');
+                                                            artistsList.classList.add('artistL');
+            
+            
+                                                            const artists = forwards.primaryArtists.split(', '); // Split the artist names by comma and space
+                                                            artists.forEach(artistName => {
+                                                                const artistListItem = document.createElement('li');
+                                                                artistListItem.textContent = artistName;
+                                                                artistsList.appendChild(artistListItem);
+                                                            });
+            
+                                                            const artistsdiv = document.createElement('div');
+                                                            artistsdiv.classList.add('artist', 'x-scroll');
+                                                            artistsdiv.appendChild(artistsList);
+            
+            
+                                                            resultImage.src = forwards.image[2].link; // Using the 500x500 image link
+                                                            // musicimage.src = result.image[2].link; // Using the 500x500 image link
+                                                            // musictitle.textContent = `${result.name}`;
+                                                            // const songName = decodeHTMLEntities(result.name);
+            
+                                                            resultName.textContent = songName;
+                                                            resultLanguage.textContent = `${forwards.language} ‧ ${forwards.year}`;
+                                                            // resultArtists.textContent = `${result.primaryArtists}`;
+            
+            
+                                                            const imagediv = document.createElement('div');
+                                                            imagediv.classList.add('songI');
+                                                            imagediv.appendChild(resultImage);
+            
+                                                            // Append the image element to the custom div
+                                                            albumContent.appendChild(resultName);
+                                                            albumContent.appendChild(albumDetail);
+            
+                                                            albumDetail.appendChild(resultLanguage);
+                                                            albumDetail.appendChild(artistsdiv);
+                                                            albumContent.appendChild(albumDetail);
+            
+                                                            // Append the elements to the resultInfo div
+                                                            resultInfo.appendChild(imagediv);
+                                                            resultInfo.appendChild(albumContent);
+                                                            // resultInfo.appendChild(albumDetail);
+                                                            // resultInfo.appendChild(albumDetail);
+            
+            
+            
+                                                            searchResultD.appendChild(resultInfo);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                                                            if (lastDownloadUrl) {
+                                                                // Set the last download URL as the src attribute for the audio element
+                                                                music.src = lastDownloadUrl.link;
+                                                                // musictitle.textContent = `${songName}`;
+                                                                // musicimage.src = songImage;
+                                                                playfunc();
+            
+            
+                                                            } else {
+                                                                console.error('Download URL not found.');
+                                                            }
+                                                        })
+
+
+
+                                                });
+
+
+                                                // const forwards = forward.data.trending.songs;
+
+                                            }
+                                        });
+
+                                    });
+
+
+
+
+
+
+
 
 
                                 // Create elements for displaying the song information
@@ -457,7 +606,7 @@ searchInput.addEventListener('input', () => {
                                 const artists = result.primaryArtists.split(', '); // Split the artist names by comma and space
                                 artists.forEach(artistName => {
                                     const artistListItem = document.createElement('li');
-                                    artistListItem.textContent = artistName;
+                                    artistListItem.textContent = decodeHTMLEntities(artistName);
                                     artistsList.appendChild(artistListItem);
                                 });
 
