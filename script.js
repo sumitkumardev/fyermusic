@@ -882,6 +882,7 @@ const playfunc = () => {
 
 playButton.addEventListener('click', () => {
     music.play();
+    music.volume = 1;
     playButton.style.display = "none";
     pauseButton.style.display = "inline-flex";
 });
@@ -889,11 +890,14 @@ playButton.addEventListener('click', () => {
 // Add click event listener to the pause button
 pauseButton.addEventListener('click', () => {
     music.pause();
+    music.volume = 0;
     playButton.style.display = "inline-flex";
     pauseButton.style.display = "none";
 });
 
 seekBar.addEventListener("input", function () {
+    // music.playbackRate = 0.95;
+    // music.volume = 0.5;
     const progress = seekBar.value / 100;
     music.currentTime = progress * music.duration;
 });
@@ -905,11 +909,12 @@ seekBar.addEventListener("input", function () {
 // });
 
 // // Add an event listener to the seek bar to detect when the user is done interacting
-// seekBar.addEventListener("change", function () {
-//     // When the user leaves the seek bar, resume playing the audio
-//     music.play();
-//     music.volume = 1;
-// });
+seekBar.addEventListener("change", function () {
+    // When the user leaves the seek bar, resume playing the audio
+    // // music.play();
+    // music.playbackRate = 1;
+    // music.volume = 1;
+});
 
 
 
