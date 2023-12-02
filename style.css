@@ -23,6 +23,8 @@ h2{
     color: #0e2045;
     font-weight: 400;
     font-size: 15px;
+}
+.title{
     margin-bottom: 25px;
 }
 .albums {
@@ -39,9 +41,10 @@ h2{
 }
 form{
     position: relative;
-    margin: 0 0 20px;
 }
-
+#searchResultD{
+    margin: 20px 0 20px;
+}
 h4.song-name {font-size: 14px;margin: 5px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;line-height: 1.25;overflow: hidden;}
 
 
@@ -108,7 +111,7 @@ ul.artistL {
     color: #222;
     font-size: 13px;
 }
-.resultDetails ul.artistL li {
+.resultDetails ul.artistL li, .recoDetails ul.artistL li{
     padding: 0;
     background: transparent;
 }
@@ -261,7 +264,7 @@ svg .line, svg.line {
     box-shadow: 2px 0 10px rgb(0 0 0 / 5%);
 }
 
-.search-result {
+.search-result, .recommendData {
     width: 100%;
     display: flex;
     /* gap: 15px; */
@@ -272,12 +275,12 @@ svg .line, svg.line {
     border-radius: 10px;
     padding: 10px;
 }
-.resultDetails {
+.resultDetails, .recoDetails {
     font-size: 13px;
     padding: 0 15px;
     overflow: hidden;
 }
-.resultDetails h4 {
+.resultDetails h4, .recoDetails h4{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
