@@ -439,10 +439,11 @@ searchInput.addEventListener('input', () => {
                                 // Get the Artist IDs and Song ID
                                 const artistIds = result.primaryArtistsId.split(',').map(id => id.trim());
                                 const songId = result.id;
+                                const songlang = result.language;
 
                                 // Construct and fetch recommendations for each artist
                                 artistIds.forEach(artistId => {
-                                    const recommendUrl = `${apiEndpoints.recomend}${artistId}/recommendations/${songId}`;
+                                    const recommendUrl = `${apiEndpoints.recomend}${artistId}/recommendations/${songId}?language=${songlang}`;
 
                                     fetch(recommendUrl)
                                         .then(response => response.json())
@@ -713,7 +714,7 @@ searchInput.addEventListener('input', () => {
 
                                 // const searchUrl = apiEndpoints.forwardS + encodeURIComponent(query) + '&limit=5';
                                 artistIds.forEach(artistId => {
-                                    const forwardS = `${apiEndpoints.recomend}${artistId}/recommendations/${songId}`;
+                                    const forwardS = `${apiEndpoints.recomend}${artistId}/recommendations/${songId}?language=${songlang}`;
                                     console.log(forwardS);
 
 
