@@ -727,25 +727,70 @@ searchInput.addEventListener('input', () => {
 
                                             // Declare an index variable to keep track of the currently playing song
                                             let currentSongIndex = 0;
-
+                                            // let currentSongIndex = 0;
+                                            let lastFetchedIndex = -1;
                                             // ...
-
-                                            // Inside your forwardN event listener, increment the index
-                                            forwardN.addEventListener('click', () => {
+                                            music.addEventListener('ended', () => {
                                                 if (Array.isArray(forwards) && forwards.length > 0) {
                                                     // Increment the current index
                                                     currentSongIndex++;
-
+                                            
                                                     // Check if the index goes beyond the array length, and wrap it if necessary
                                                     if (currentSongIndex >= forwards.length) {
                                                         currentSongIndex = 0;
                                                     }
+                                            
+                                                    // Check if we need to fetch new data (when the current index reaches the end of the previously fetched array)
+                                                    if (currentSongIndex > lastFetchedIndex) {
+                                                        // Get the ID of the next song to play
+                                                        const songId = forwards[currentSongIndex].id;
+                                            
+                                                        // Fetch and play the next song
+                                                        playSong(songId);
+                                            
+                                                        // Update the last fetched index
+                                                        lastFetchedIndex = currentSongIndex;
+                                                    }
+                                                }
+                                            });
+                                            
+                                            // Inside your forwardN event listener, increment the index
+                                            forwardN.addEventListener('click', () => {
+                                                // if (Array.isArray(forwards) && forwards.length > 0) {
+                                                //     // Increment the current index
+                                                //     currentSongIndex++;
 
-                                                    // Get the ID of the next song to play
-                                                    const songId = forwards[currentSongIndex].id;
+                                                //     // Check if the index goes beyond the array length, and wrap it if necessary
+                                                //     if (currentSongIndex >= forwards.length) {
+                                                //         currentSongIndex = 0;
+                                                //     }
 
-                                                    // Fetch and play the next song
-                                                    playSong(songId);
+                                                //     // Get the ID of the next song to play
+                                                //     const songId = forwards[currentSongIndex].id;
+
+                                                //     // Fetch and play the next song
+                                                //     playSong(songId);
+                                                // }
+                                                if (Array.isArray(forwards) && forwards.length > 0) {
+                                                    // Increment the current index
+                                                    currentSongIndex++;
+                                            
+                                                    // Check if the index goes beyond the array length, and wrap it if necessary
+                                                    if (currentSongIndex >= forwards.length) {
+                                                        currentSongIndex = 0;
+                                                    }
+                                            
+                                                    // Check if we need to fetch new data (when the current index reaches the end of the previously fetched array)
+                                                    if (currentSongIndex > lastFetchedIndex) {
+                                                        // Get the ID of the next song to play
+                                                        const songId = forwards[currentSongIndex].id;
+                                            
+                                                        // Fetch and play the next song
+                                                        playSong(songId);
+                                            
+                                                        // Update the last fetched index
+                                                        lastFetchedIndex = currentSongIndex;
+                                                    }
                                                 }
                                             });
 
@@ -1054,7 +1099,6 @@ seekBar.addEventListener("change", function () {
     // music.playbackRate = 1;
     // music.volume = 1;
 });
-
 
 
 
