@@ -23,13 +23,13 @@ const previousN = document.getElementById('prev');
 
 
 const apiEndpoints = {
-    homepage: 'https://saavn.me/modules?language=hindi,punjabi',
-    forwardS: 'https://saavn.me/modules?language=',
-    search: 'https://saavn.me/search/songs?query=',
-    albums: 'https://saavn.me/search/albums?query=rockstar',
-    albumsData: 'https://saavn.me/albums?id=',
-    recomend: 'https://saavn.me/artists/',
-    songurl: 'https://saavn.me/songs?id='
+    homepage: 'https://saavn.dev/modules?language=hindi,punjabi',
+    forwardS: 'https://saavn.dev/modules?language=',
+    search: 'https://saavn.dev/search/songs?query=',
+    albums: 'https://saavn.dev/search/albums?query=rockstar',
+    albumsData: 'https://saavn.dev/albums?id=',
+    recomend: 'https://saavn.dev/artists/',
+    songurl: 'https://saavn.dev/songs?id='
 };
 
 function decodeHTMLEntities(text) {
