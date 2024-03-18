@@ -130,37 +130,62 @@ ul.artistL {
 }
 
 .albumS {
-    display: flex;
-    list-style: none;
-    /* margin: 0; */
-    gap: 20px;
+    width: 100%;
+    height: 100%;
     margin: 0 0 20px;
+    position: relative;
 }
 
 .songI {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 300px;
     border-radius: 8px;
     position: relative;
     overflow: hidden;
     box-shadow: -5px 5px 10px rgb(0 0 0 / 10%);
+}
+.songI:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, .4) 0%, rgba(255, 255, 255, 0) 70%);
+}
+.songP {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    padding-top: 80%;
+}
+
+
+
+.y-scroll {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    overflow-y: visible;
+    /* scroll-snap-type: y mandatory; */
 }
 .C{
     text-align: center;
 }
 
 .song {
-    width: 100%;
     scroll-snap-align: start;
-    flex: 0 0 20%;
-    padding: 15px;
-    background: #f4f6ff;
-    border-radius: 1rem;
+    padding: 13px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, .2);
+    border: 1px solid rgba(255, 255, 255, .3);
+    color: #fefefe;
 }
 
 .song-name {
     font-size: 13px;
-    margin: 10px 0 0;
+    /* margin: 10px 0 0; */
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -174,6 +199,7 @@ ul.artistL {
     padding: 10px 20px 10px;
     border-radius: 1rem 1rem 0 0;
     box-shadow: 0 0 0px 1px rgb(0 0 0 / 10%);
+    z-index: 10;
 }
 
 .music-controls {
