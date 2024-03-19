@@ -1,4 +1,7 @@
 const albumLElement = document.getElementById('albumL');
+const albumLElement2 = document.getElementById('albumL2')
+const albumLElement3 = document.getElementById('albumL3');;
+
 const albumSElement = document.getElementById('albumS');
 // const play = document.getElementById("play");
 const music = document.getElementById('audiosrc');
@@ -24,6 +27,8 @@ const previousN = document.getElementById('prev');
 
 const apiEndpoints = {
     homepage: 'https://saavn.dev/api/search/albums?query=hindi',
+    homepage2: 'https://saavn.dev/api/search/albums?query=punjabi',
+    homepage3: 'https://saavn.dev/api/search/albums?query=bhojpuri',
     forwardS: 'https://saavn.dev/modules?language=',
     search: 'https://saavn.dev/api/search/songs?query=',
     albums: 'https://saavn.dev/api/search/albums?query=',
@@ -65,6 +70,7 @@ fetchData('homepage')
 
 
 // Fetch data from the "homepage" API
+
 fetchData('homepage')
     .then(homepageData => {
         // Check if there are albums in the response
@@ -374,6 +380,642 @@ fetchData('homepage')
 
                 // Append the album div to the body
                 albumLElement.appendChild(albumDiv);
+            });
+        }
+    })
+
+    .catch(error => {
+        console.error(error);
+    });
+
+// copy of homepage -2
+fetchData('homepage2')
+    .then(homepageData => {
+        // Check if there are albums in the response
+        // const albums = homepageData.data.trending.albums;
+        const albums = homepageData.data.results;
+
+
+        if (Array.isArray(albums) && albums.length > 0) {
+            // Loop through the albums and create a div for each album
+            albums.forEach(album => {
+                const albumDiv = document.createElement('div');
+
+                // Generate a unique ID based on the album's ID from the API
+                const albumId = album.id;
+                const uniqueId = `album-${albumId}`;
+                albumDiv.id = uniqueId;
+
+                albumDiv.classList.add('album');
+
+                // Extract the album details
+                // const albumName = album.name;
+                const albumName = decodeHTMLEntities(album.name);
+                const albumImage = album.image[1].url; // Using the first image link
+                const artists = album.artists.primary;
+                const language = album.language;
+
+                // Create HTML elements with classes to display the data for the album
+                const imageElement = document.createElement('img');
+                imageElement.classList.add('album-image');
+                imageElement.src = albumImage;
+
+                // Create a custom div to wrap the image element
+                const imagediv = document.createElement('div');
+                imagediv.classList.add('thumbS');
+
+                // Append the image element to the custom div
+                imagediv.appendChild(imageElement);
+
+                const albumTitle = document.createElement('h4');
+                albumTitle.classList.add('song-name');
+                albumTitle.textContent = `${albumName}`;
+
+                const albumLang = document.createElement('div');
+                albumLang.classList.add('song-lang');
+                albumLang.textContent = `${language}`;
+
+                const artistsList = document.createElement('ul');
+                artistsList.classList.add('artistL');
+
+                // Extract and display the artist names in <li> elements
+                artists.forEach(artist => {
+                    const artistName = decodeHTMLEntities(artist.name);
+                    const artistListItem = document.createElement('li');
+                    artistListItem.textContent = artistName;
+                    artistsList.appendChild(artistListItem);
+                });
+
+                const artistsdiv = document.createElement('div');
+                artistsdiv.classList.add('artist', 'x-scroll');
+                artistsdiv.appendChild(artistsList);
+
+
+                const albumDetail = document.createElement('div');
+                albumDetail.classList.add('albumDetail');
+                const albumContent = document.createElement('div');
+                albumContent.classList.add('albumContent');
+
+                // Append the image element to the custom div
+                albumContent.appendChild(albumTitle);
+                albumDetail.appendChild(albumLang);
+                albumDetail.appendChild(artistsdiv);
+                albumContent.appendChild(albumDetail);
+
+                // Append the elements to the album div
+                albumDiv.appendChild(imagediv);
+                albumDiv.appendChild(albumContent);
+
+                // Add a click event listener to fetch data when the album div is clicked
+                albumDiv.addEventListener('click', () => {
+                    const apiEndpoint = apiEndpoints.albumsData + albumId;
+                    // Fetch data with the album's ID from the API
+                    fetch(apiEndpoint)
+                        .then(response => response.json())
+                        .then(albumData => {
+                            // Clear the previously displayed songs
+                            albumSElement.innerHTML = '';
+                            // searchResults.innerHTML = ''; // Clear previous search results
+                            console.log(albumData);
+
+
+                            const songDivparent = document.createElement('div');
+                            songDivparent.classList.add('songP', 'y-scroll');
+
+                            albumSElement.appendChild(songDivparent);
+
+
+
+
+                            // Check if there are songs in the response
+                            const songsData = albumData.data.songs;
+
+
+
+                            if (Array.isArray(songsData) && songsData.length > 0) {
+                                console.log(songsData);
+
+
+                                const firstSong = songsData[0]; // Assuming songsData is an array of objects
+
+                                if (firstSong && firstSong.image && firstSong.image.length > 1) {
+                                    const songImage = firstSong.image[2].url; // Using the first image link
+
+                                    console.log(songImage);
+
+
+                                    const songI = document.createElement('div');
+                                    songI.classList.add('songI');
+
+                                    const songImageElement = document.createElement('img');
+                                    songImageElement.classList.add('song-image');
+                                    songImageElement.src = songImage;
+
+                                    songI.appendChild(songImageElement);
+                                    albumSElement.appendChild(songI);
+
+
+                                }
+
+
+                                // Loop through the songs and create a div for each song
+                                songsData.forEach(song => {
+                                    const songDiv = document.createElement('div');
+                                    songDiv.classList.add('song');
+
+                                    // Extract song details
+                                    // const songName = song.name;
+                                    const songName = decodeHTMLEntities(song.name);
+                                    const songId = song.id;
+                                    // const songImage = song.image[1].url; // Using the first image link
+                                    const songDuration = song.duration;
+                                    const songLabel = song.label;
+                                    const primaryArtist = song.primaryArtists;
+                                    const explicitContent = song.explicitContent;
+
+                                    // Create HTML elements with classes to display the data for the song
+                                    const songNameElement = document.createElement('p');
+                                    songNameElement.classList.add('song-name');
+                                    songNameElement.textContent = `${songName}`;
+                                    const uniqueIds = `song-${songId}`;
+                                    songNameElement.id = uniqueIds;
+
+                                    // const songImageElement = document.createElement('img');
+                                    // songImageElement.classList.add('song-image');
+                                    // songImageElement.src = songImage;
+
+
+                                    // songI.appendChild(songImageElement);
+
+                                    songDiv.appendChild(songNameElement);
+
+
+                                    // Append the song div to the container
+                                    songDivparent.appendChild(songDiv);
+
+
+                                    // Add a click event listener to the songDiv elements
+                                    songDiv.addEventListener('click', () => {
+                                        const songUrl = apiEndpoints.songurl + songId;
+
+                                        fetch(songUrl)
+                                            .then(response => response.json())
+                                            .then(songData => {
+                                                console.log(songData);
+                                                // Get the last download URL from the album data
+                                                // const songName = song.name;
+                                                const songName = decodeHTMLEntities(song.name);
+                                                const songImage = song.image[1].url;
+                                                const lastDownloadUrl = songData.data[0].downloadUrl[songData.data[0].downloadUrl.length - 1];
+                                                console.log(lastDownloadUrl);
+                                                // console.log(songData);
+
+
+
+
+
+                                                searchResults.innerHTML = ''; // Clear previous search results
+                                                searchResultD.innerHTML = ''; // Clear previous search results
+
+
+                                                // Create elements for displaying the song information
+                                                const resultInfo = document.createElement('div');
+                                                resultInfo.classList.add('songR');
+                                                const resultImage = document.createElement('img');
+                                                resultImage.classList.add('song-image');
+                                                const resultName = document.createElement('h4');
+                                                resultName.classList.add('song-name');
+                                                const resultLanguage = document.createElement('div');
+                                                resultLanguage.classList.add('song-lang');
+
+                                                const albumDetail = document.createElement('div');
+                                                albumDetail.classList.add('albumDetail');
+                                                const albumContent = document.createElement('div');
+                                                albumContent.classList.add('albumContent');
+
+
+
+                                                const artistsList = document.createElement('ul');
+                                                artistsList.classList.add('artistL');
+
+
+                                                artists.forEach(artist => {
+                                                    const artistName = decodeHTMLEntities(artist.name);
+                                                    const artistListItem = document.createElement('li');
+                                                    artistListItem.textContent = artistName;
+                                                    artistsList.appendChild(artistListItem);
+                                                });
+                                                // const artists = song.primaryArtists.split(', '); // Split the artist names by comma and space
+                                                // artists.forEach(artistName => {
+                                                //     const artistListItem = document.createElement('li');
+                                                //     artistListItem.textContent = artistName;
+                                                //     artistsList.appendChild(artistListItem);
+                                                // });
+
+                                                const artistsdiv = document.createElement('div');
+                                                artistsdiv.classList.add('artist', 'x-scroll');
+                                                artistsdiv.appendChild(artistsList);
+
+
+                                                resultImage.src = song.image[2].url; // Using the 500x500 image link
+                                                // musicimage.src = result.image[2].link; // Using the 500x500 image link
+                                                // musictitle.textContent = `${result.name}`;
+                                                // const songName = decodeHTMLEntities(result.name);
+
+                                                resultName.textContent = songName;
+                                                resultLanguage.textContent = `${song.language} ‧ ${song.year}`;
+                                                // resultArtists.textContent = `${result.primaryArtists}`;
+
+
+                                                const imagediv = document.createElement('div');
+                                                imagediv.classList.add('songI');
+                                                imagediv.appendChild(resultImage);
+
+                                                // Append the image element to the custom div
+                                                albumContent.appendChild(resultName);
+                                                albumContent.appendChild(albumDetail);
+
+                                                albumDetail.appendChild(resultLanguage);
+                                                albumDetail.appendChild(artistsdiv);
+                                                albumContent.appendChild(albumDetail);
+
+                                                // Append the elements to the resultInfo div
+                                                resultInfo.appendChild(imagediv);
+                                                resultInfo.appendChild(albumContent);
+                                                // resultInfo.appendChild(albumDetail);
+                                                // resultInfo.appendChild(albumDetail);
+
+
+
+                                                searchResultD.appendChild(resultInfo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                if (lastDownloadUrl) {
+                                                    // Set the last download URL as the src attribute for the audio element
+                                                    music.src = lastDownloadUrl.url;
+                                                    // musictitle.textContent = `${songName}`;
+                                                    // musicimage.src = songImage;
+                                                    playfunc();
+
+
+                                                } else {
+                                                    console.error('Download URL not found.');
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
+                                            });
+                                    });
+
+                                });
+
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                });
+
+
+                // Append the album div to the body
+                albumLElement2.appendChild(albumDiv);
+            });
+        }
+    })
+
+    .catch(error => {
+        console.error(error);
+    });
+
+// copy of homepage -3
+fetchData('homepage3')
+    .then(homepageData => {
+        // Check if there are albums in the response
+        // const albums = homepageData.data.trending.albums;
+        const albums = homepageData.data.results;
+
+
+        if (Array.isArray(albums) && albums.length > 0) {
+            // Loop through the albums and create a div for each album
+            albums.forEach(album => {
+                const albumDiv = document.createElement('div');
+
+                // Generate a unique ID based on the album's ID from the API
+                const albumId = album.id;
+                const uniqueId = `album-${albumId}`;
+                albumDiv.id = uniqueId;
+
+                albumDiv.classList.add('album');
+
+                // Extract the album details
+                // const albumName = album.name;
+                const albumName = decodeHTMLEntities(album.name);
+                const albumImage = album.image[1].url; // Using the first image link
+                const artists = album.artists.primary;
+                const language = album.language;
+
+                // Create HTML elements with classes to display the data for the album
+                const imageElement = document.createElement('img');
+                imageElement.classList.add('album-image');
+                imageElement.src = albumImage;
+
+                // Create a custom div to wrap the image element
+                const imagediv = document.createElement('div');
+                imagediv.classList.add('thumbS');
+
+                // Append the image element to the custom div
+                imagediv.appendChild(imageElement);
+
+                const albumTitle = document.createElement('h4');
+                albumTitle.classList.add('song-name');
+                albumTitle.textContent = `${albumName}`;
+
+                const albumLang = document.createElement('div');
+                albumLang.classList.add('song-lang');
+                albumLang.textContent = `${language}`;
+
+                const artistsList = document.createElement('ul');
+                artistsList.classList.add('artistL');
+
+                // Extract and display the artist names in <li> elements
+                artists.forEach(artist => {
+                    const artistName = decodeHTMLEntities(artist.name);
+                    const artistListItem = document.createElement('li');
+                    artistListItem.textContent = artistName;
+                    artistsList.appendChild(artistListItem);
+                });
+
+                const artistsdiv = document.createElement('div');
+                artistsdiv.classList.add('artist', 'x-scroll');
+                artistsdiv.appendChild(artistsList);
+
+
+                const albumDetail = document.createElement('div');
+                albumDetail.classList.add('albumDetail');
+                const albumContent = document.createElement('div');
+                albumContent.classList.add('albumContent');
+
+                // Append the image element to the custom div
+                albumContent.appendChild(albumTitle);
+                albumDetail.appendChild(albumLang);
+                albumDetail.appendChild(artistsdiv);
+                albumContent.appendChild(albumDetail);
+
+                // Append the elements to the album div
+                albumDiv.appendChild(imagediv);
+                albumDiv.appendChild(albumContent);
+
+                // Add a click event listener to fetch data when the album div is clicked
+                albumDiv.addEventListener('click', () => {
+                    const apiEndpoint = apiEndpoints.albumsData + albumId;
+                    // Fetch data with the album's ID from the API
+                    fetch(apiEndpoint)
+                        .then(response => response.json())
+                        .then(albumData => {
+                            // Clear the previously displayed songs
+                            albumSElement.innerHTML = '';
+                            // searchResults.innerHTML = ''; // Clear previous search results
+                            console.log(albumData);
+
+
+                            const songDivparent = document.createElement('div');
+                            songDivparent.classList.add('songP', 'y-scroll');
+
+                            albumSElement.appendChild(songDivparent);
+
+
+
+
+                            // Check if there are songs in the response
+                            const songsData = albumData.data.songs;
+
+
+
+                            if (Array.isArray(songsData) && songsData.length > 0) {
+                                console.log(songsData);
+
+
+                                const firstSong = songsData[0]; // Assuming songsData is an array of objects
+
+                                if (firstSong && firstSong.image && firstSong.image.length > 1) {
+                                    const songImage = firstSong.image[2].url; // Using the first image link
+
+                                    console.log(songImage);
+
+
+                                    const songI = document.createElement('div');
+                                    songI.classList.add('songI');
+
+                                    const songImageElement = document.createElement('img');
+                                    songImageElement.classList.add('song-image');
+                                    songImageElement.src = songImage;
+
+                                    songI.appendChild(songImageElement);
+                                    albumSElement.appendChild(songI);
+
+
+                                }
+
+
+                                // Loop through the songs and create a div for each song
+                                songsData.forEach(song => {
+                                    const songDiv = document.createElement('div');
+                                    songDiv.classList.add('song');
+
+                                    // Extract song details
+                                    // const songName = song.name;
+                                    const songName = decodeHTMLEntities(song.name);
+                                    const songId = song.id;
+                                    // const songImage = song.image[1].url; // Using the first image link
+                                    const songDuration = song.duration;
+                                    const songLabel = song.label;
+                                    const primaryArtist = song.primaryArtists;
+                                    const explicitContent = song.explicitContent;
+
+                                    // Create HTML elements with classes to display the data for the song
+                                    const songNameElement = document.createElement('p');
+                                    songNameElement.classList.add('song-name');
+                                    songNameElement.textContent = `${songName}`;
+                                    const uniqueIds = `song-${songId}`;
+                                    songNameElement.id = uniqueIds;
+
+                                    // const songImageElement = document.createElement('img');
+                                    // songImageElement.classList.add('song-image');
+                                    // songImageElement.src = songImage;
+
+
+                                    // songI.appendChild(songImageElement);
+
+                                    songDiv.appendChild(songNameElement);
+
+
+                                    // Append the song div to the container
+                                    songDivparent.appendChild(songDiv);
+
+
+                                    // Add a click event listener to the songDiv elements
+                                    songDiv.addEventListener('click', () => {
+                                        const songUrl = apiEndpoints.songurl + songId;
+
+                                        fetch(songUrl)
+                                            .then(response => response.json())
+                                            .then(songData => {
+                                                console.log(songData);
+                                                // Get the last download URL from the album data
+                                                // const songName = song.name;
+                                                const songName = decodeHTMLEntities(song.name);
+                                                const songImage = song.image[1].url;
+                                                const lastDownloadUrl = songData.data[0].downloadUrl[songData.data[0].downloadUrl.length - 1];
+                                                console.log(lastDownloadUrl);
+                                                // console.log(songData);
+
+
+
+
+
+                                                searchResults.innerHTML = ''; // Clear previous search results
+                                                searchResultD.innerHTML = ''; // Clear previous search results
+
+
+                                                // Create elements for displaying the song information
+                                                const resultInfo = document.createElement('div');
+                                                resultInfo.classList.add('songR');
+                                                const resultImage = document.createElement('img');
+                                                resultImage.classList.add('song-image');
+                                                const resultName = document.createElement('h4');
+                                                resultName.classList.add('song-name');
+                                                const resultLanguage = document.createElement('div');
+                                                resultLanguage.classList.add('song-lang');
+
+                                                const albumDetail = document.createElement('div');
+                                                albumDetail.classList.add('albumDetail');
+                                                const albumContent = document.createElement('div');
+                                                albumContent.classList.add('albumContent');
+
+
+
+                                                const artistsList = document.createElement('ul');
+                                                artistsList.classList.add('artistL');
+
+
+                                                artists.forEach(artist => {
+                                                    const artistName = decodeHTMLEntities(artist.name);
+                                                    const artistListItem = document.createElement('li');
+                                                    artistListItem.textContent = artistName;
+                                                    artistsList.appendChild(artistListItem);
+                                                });
+                                                // const artists = song.primaryArtists.split(', '); // Split the artist names by comma and space
+                                                // artists.forEach(artistName => {
+                                                //     const artistListItem = document.createElement('li');
+                                                //     artistListItem.textContent = artistName;
+                                                //     artistsList.appendChild(artistListItem);
+                                                // });
+
+                                                const artistsdiv = document.createElement('div');
+                                                artistsdiv.classList.add('artist', 'x-scroll');
+                                                artistsdiv.appendChild(artistsList);
+
+
+                                                resultImage.src = song.image[2].url; // Using the 500x500 image link
+                                                // musicimage.src = result.image[2].link; // Using the 500x500 image link
+                                                // musictitle.textContent = `${result.name}`;
+                                                // const songName = decodeHTMLEntities(result.name);
+
+                                                resultName.textContent = songName;
+                                                resultLanguage.textContent = `${song.language} ‧ ${song.year}`;
+                                                // resultArtists.textContent = `${result.primaryArtists}`;
+
+
+                                                const imagediv = document.createElement('div');
+                                                imagediv.classList.add('songI');
+                                                imagediv.appendChild(resultImage);
+
+                                                // Append the image element to the custom div
+                                                albumContent.appendChild(resultName);
+                                                albumContent.appendChild(albumDetail);
+
+                                                albumDetail.appendChild(resultLanguage);
+                                                albumDetail.appendChild(artistsdiv);
+                                                albumContent.appendChild(albumDetail);
+
+                                                // Append the elements to the resultInfo div
+                                                resultInfo.appendChild(imagediv);
+                                                resultInfo.appendChild(albumContent);
+                                                // resultInfo.appendChild(albumDetail);
+                                                // resultInfo.appendChild(albumDetail);
+
+
+
+                                                searchResultD.appendChild(resultInfo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                if (lastDownloadUrl) {
+                                                    // Set the last download URL as the src attribute for the audio element
+                                                    music.src = lastDownloadUrl.url;
+                                                    // musictitle.textContent = `${songName}`;
+                                                    // musicimage.src = songImage;
+                                                    playfunc();
+
+
+                                                } else {
+                                                    console.error('Download URL not found.');
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
+                                            });
+                                    });
+
+                                });
+
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                });
+
+
+                // Append the album div to the body
+                albumLElement3.appendChild(albumDiv);
             });
         }
     })
