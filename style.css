@@ -1,32 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     /* font-family: 'Open Sans', sans-serif; */
     /* font-family: 'Merriweather', serif; */
     font-family: 'Nunito', sans-serif;
     /* font-family: 'Raleway', sans-serif; */
 }
-svg{
+
+svg {
     width: 24px;
     height: 24px;
 }
-.svg50{
+
+.svg50 {
     width: 50px;
     height: 50px;
 }
-h2{
+
+h2 {
     color: #0e2045;
     font-weight: 400;
     font-size: 15px;
 }
-.title{
+
+.title {
     margin-bottom: 25px;
 }
+
 .albums {
     padding: 20px 20px 10rem 20px;
 }
@@ -39,13 +46,24 @@ h2{
     scroll-snap-align: center;
     flex: 0 0 100%;
 }
-form{
+
+form {
     position: relative;
 }
-#searchResultD{
+
+#searchResultD {
     margin: 20px 0 20px;
 }
-h4.song-name {font-size: 14px;margin: 5px;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;line-height: 1.25;overflow: hidden;}
+
+h4.song-name {
+    font-size: 14px;
+    margin: 5px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 1.25;
+    overflow: hidden;
+}
 
 
 .albumDetail {
@@ -53,16 +71,29 @@ h4.song-name {font-size: 14px;margin: 5px;display: -webkit-box;-webkit-box-orien
     font-family: 'Raleway', sans-serif;
 }
 
-.thumbS {height: 80px;border-radius: 10px;position: relative;overflow: hidden;flex: 0 0 80px;width: 100%;}
-img.album-image, img.song-image, img.song-image {
+.thumbS {
+    height: 80px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 80px;
+    width: 100%;
+}
+
+img.album-image,
+img.song-image,
+img.song-image {
     display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    /* position: relative; */
+    /* top: 50%; */
+    /* left: 50%; */
     max-width: none;
     max-height: 100%;
     text-align: center;
-    transform: translate(-50%,-50%);
+    /* transform: translate(-50%, -50%); */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 
@@ -100,18 +131,21 @@ ul.artistL {
     /* width: 100%; */
     overflow: hidden;
 }
+
 .x-scroll::-webkit-scrollbar {
     display: none;
-  }
+}
 
-  ul.artistL li {
+ul.artistL li {
     padding: 5px;
     background: #f7f7f7;
     border-radius: 10px;
     color: #222;
     font-size: 13px;
 }
-.resultDetails ul.artistL li, .recoDetails ul.artistL li{
+
+.resultDetails ul.artistL li,
+.recoDetails ul.artistL li {
     padding: 0;
     background: transparent;
 }
@@ -138,25 +172,38 @@ ul.artistL {
 
 .songI {
     width: 100%;
-    height: 300px;
+    height: 100%;
+    display: flex;
+    /* padding-top: 100%; */
     border-radius: 8px;
     position: relative;
     overflow: hidden;
     box-shadow: -5px 5px 10px rgb(0 0 0 / 10%);
 }
-.songI:after {
+.songI:before {
     content: '';
     position: absolute;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, .4) 0%, rgba(255, 255, 255, 0) 70%);
+    height: 2rem;
+    background: linear-gradient(to bottom,  rgba(0,0,0,.4) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
 }
+.songI:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2rem;
+    background: linear-gradient(to top,  rgba(0,0,0,.4) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+}
+
 .songP {
     width: 100%;
     height: 100%;
     position: absolute;
     z-index: 1;
-    padding-top: 80%;
+    padding-top: 70%;
 }
 
 
@@ -167,7 +214,8 @@ ul.artistL {
     overflow-y: visible;
     /* scroll-snap-type: y mandatory; */
 }
-.C{
+
+.C {
     text-align: center;
 }
 
@@ -177,10 +225,13 @@ ul.artistL {
     border-radius: 8px;
     overflow: hidden;
     margin: 10px;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, .2);
-    border: 1px solid rgba(255, 255, 255, .3);
-    color: #fefefe;
+    backdrop-filter: blur(4px);
+    background: #fefefe;
+    background: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(255, 255, 255, .4);
+    color: #ffffff;
+    box-shadow: -5px 5px 10px rgb(0 0 0 / 10%);
+
 }
 
 .song-name {
@@ -191,6 +242,7 @@ ul.artistL {
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
+
 .musicP {
     width: 100%;
     position: fixed;
@@ -207,9 +259,11 @@ ul.artistL {
     align-items: center;
     justify-content: space-evenly;
 }
+
 input#seek {
     width: 100%;
 }
+
 .music-timer {
     display: flex;
     justify-content: space-between;
@@ -235,7 +289,8 @@ input#searchInput {
     font-size: 95%;
 }
 
-button.searchButton, .close {
+button.searchButton,
+.close {
     background: transparent;
     border: 0;
     outline: 0;
@@ -253,7 +308,8 @@ button.close {
     left: auto;
 }
 
-svg .line, svg.line {
+svg .line,
+svg.line {
     fill: none;
     stroke: #242423;
     stroke-linecap: round;
@@ -262,6 +318,7 @@ svg .line, svg.line {
     width: 16px;
     height: 16px;
 }
+
 .songR {
     width: 100%;
     scroll-snap-align: start;
@@ -271,6 +328,7 @@ svg .line, svg.line {
     position: relative;
     overflow: hidden;
 }
+
 .songR .albumContent {
     background: #faf9ff;
     padding: 5px;
@@ -282,6 +340,7 @@ svg .line, svg.line {
     padding-top: 100%;
     margin: 0 0 15px;
 }
+
 .thumb {
     padding: 25px;
     border-radius: 10px;
@@ -290,7 +349,8 @@ svg .line, svg.line {
     box-shadow: 2px 0 10px rgb(0 0 0 / 5%);
 }
 
-.search-result, .recommendData {
+.search-result,
+.recommendData {
     width: 100%;
     display: flex;
     /* gap: 15px; */
@@ -301,12 +361,16 @@ svg .line, svg.line {
     border-radius: 10px;
     padding: 10px;
 }
-.resultDetails, .recoDetails {
+
+.resultDetails,
+.recoDetails {
     font-size: 13px;
     padding: 0 15px;
     overflow: hidden;
 }
-.resultDetails h4, .recoDetails h4{
+
+.resultDetails h4,
+.recoDetails h4 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
@@ -328,150 +392,145 @@ svg .line, svg.line {
 
 /* player seek bar  */
 input[type="range"] {
-	font-size: 1.5rem;
-	width: 12.5em;
+    font-size: 1.5rem;
+    width: 12.5em;
 }
 
 input[type="range"] {
-	color: #303030;
-	--thumb-height: 10px;
-	--track-height: 0.125em;
-	--track-color: rgba(0, 0, 0, 0.2);
-	--brightness-hover: 180%;
-	--brightness-down: 80%;
-	--clip-edges: 0.125em;
+    color: #303030;
+    --thumb-height: 10px;
+    --track-height: 0.125em;
+    --track-color: rgba(0, 0, 0, 0.2);
+    --brightness-hover: 180%;
+    --brightness-down: 80%;
+    --clip-edges: 0.125em;
 }
 
 input[type="range"] {
-	position: relative;
-	background: #fff0;
-	overflow: hidden;
+    position: relative;
+    background: #fff0;
+    overflow: hidden;
 }
 
 input[type="range"]:active {
-	cursor: grabbing;
+    cursor: grabbing;
 }
 
 input[type="range"]:disabled {
-	filter: grayscale(1);
-	opacity: 0.3;
-	cursor: not-allowed;
+    filter: grayscale(1);
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 input[type="range"],
 input[type="range"]::-webkit-slider-runnable-track,
 input[type="range"]::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	transition: all ease 100ms;
-	height: var(--thumb-height);
+    -webkit-appearance: none;
+    transition: all ease 100ms;
+    height: var(--thumb-height);
 }
 
 input[type="range"]::-webkit-slider-runnable-track,
 input[type="range"]::-webkit-slider-thumb {
-	position: relative;
+    position: relative;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-	--thumb-radius: calc((var(--thumb-height) * 0.5) - 1px);
-	--clip-top: calc((var(--thumb-height) - var(--track-height)) * 0.5 - 0.5px);
-	--clip-bottom: calc(var(--thumb-height) - var(--clip-top));
-	--clip-further: calc(100% + 1px);
-	--box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
-		100vmax currentColor;
+    --thumb-radius: calc((var(--thumb-height) * 0.5) - 1px);
+    --clip-top: calc((var(--thumb-height) - var(--track-height)) * 0.5 - 0.5px);
+    --clip-bottom: calc(var(--thumb-height) - var(--clip-top));
+    --clip-further: calc(100% + 1px);
+    --box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0 100vmax currentColor;
 
-	width: var(--thumb-width, var(--thumb-height));
-	background: linear-gradient(currentColor 0 0) scroll no-repeat left center /
-		50% calc(var(--track-height) + 1px);
-	background-color: currentColor;
-	box-shadow: var(--box-fill);
-	border-radius: var(--thumb-width, var(--thumb-height));
+    width: var(--thumb-width, var(--thumb-height));
+    background: linear-gradient(currentColor 0 0) scroll no-repeat left center / 50% calc(var(--track-height) + 1px);
+    background-color: currentColor;
+    box-shadow: var(--box-fill);
+    border-radius: var(--thumb-width, var(--thumb-height));
 
-	filter: brightness(100%);
-	clip-path: polygon(
-		100% -1px,
-		var(--clip-edges) -1px,
-		0 var(--clip-top),
-		-100vmax var(--clip-top),
-		-100vmax var(--clip-bottom),
-		0 var(--clip-bottom),
-		var(--clip-edges) 100%,
-		var(--clip-further) var(--clip-further)
-	);
+    filter: brightness(100%);
+    clip-path: polygon(100% -1px,
+            var(--clip-edges) -1px,
+            0 var(--clip-top),
+            -100vmax var(--clip-top),
+            -100vmax var(--clip-bottom),
+            0 var(--clip-bottom),
+            var(--clip-edges) 100%,
+            var(--clip-further) var(--clip-further));
 }
 
 input[type="range"]:hover::-webkit-slider-thumb {
-	filter: brightness(var(--brightness-hover));
-	cursor: grab;
+    filter: brightness(var(--brightness-hover));
+    cursor: grab;
 }
 
 input[type="range"]:active::-webkit-slider-thumb {
-	filter: brightness(var(--brightness-down));
-	cursor: grabbing;
+    filter: brightness(var(--brightness-down));
+    cursor: grabbing;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-	background: linear-gradient(var(--track-color) 0 0) scroll no-repeat center /
-		100% calc(var(--track-height) + 1px);
+    background: linear-gradient(var(--track-color) 0 0) scroll no-repeat center / 100% calc(var(--track-height) + 1px);
 }
 
 input[type="range"]:disabled::-webkit-slider-thumb {
-	cursor: not-allowed;
+    cursor: not-allowed;
 }
 
 /* === Firefox specific styles === */
 input[type="range"],
 input[type="range"]::-moz-range-track,
 input[type="range"]::-moz-range-thumb {
-	appearance: none;
-	transition: all ease 100ms;
-	height: var(--thumb-height);
+    appearance: none;
+    transition: all ease 100ms;
+    height: var(--thumb-height);
 }
 
 
 input[type="range"]::-moz-range-thumb {
-	background: currentColor;
-	border: 0;
-	width: var(--thumb-width, var(--thumb-height));
-	border-radius: var(--thumb-width, var(--thumb-height));
-	cursor: grab;
+    background: currentColor;
+    border: 0;
+    width: var(--thumb-width, var(--thumb-height));
+    border-radius: var(--thumb-width, var(--thumb-height));
+    cursor: grab;
 }
 
 input[type="range"]:active::-moz-range-thumb {
-	cursor: grabbing;
+    cursor: grabbing;
 }
 
 input[type="range"]::-moz-range-track {
-	width: 100%;
-	background: var(--track-color);
+    width: 100%;
+    background: var(--track-color);
 }
 
 input[type="range"]::-moz-range-progress {
-	appearance: none;
-	background: currentColor;
-	transition-delay: 30ms;
+    appearance: none;
+    background: currentColor;
+    transition-delay: 30ms;
 }
 
 input[type="range"]::-moz-range-track,
 input[type="range"]::-moz-range-progress {
-	height: calc(var(--track-height) + 1px);
-	border-radius: var(--track-height);
+    height: calc(var(--track-height) + 1px);
+    border-radius: var(--track-height);
 }
 
 input[type="range"]::-moz-range-thumb,
 input[type="range"]::-moz-range-progress {
-	filter: brightness(100%);
+    filter: brightness(100%);
 }
 
 input[type="range"]:hover::-moz-range-thumb,
 input[type="range"]:hover::-moz-range-progress {
-	filter: brightness(var(--brightness-hover));
+    filter: brightness(var(--brightness-hover));
 }
 
 input[type="range"]:active::-moz-range-thumb,
 input[type="range"]:active::-moz-range-progress {
-	filter: brightness(var(--brightness-down));
+    filter: brightness(var(--brightness-down));
 }
 
 input[type="range"]:disabled::-moz-range-thumb {
-	cursor: not-allowed;
+    cursor: not-allowed;
 }
