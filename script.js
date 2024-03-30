@@ -23,7 +23,10 @@ const forwardN = document.getElementById('next');
 // previous or old
 const previousN = document.getElementById('prev');
 
-
+// shifts the players
+const shift = document.getElementById("shift");
+// shift_music_player
+const shift_m_p = document.querySelector(".musicP");
 
 const apiEndpoints = {
     homepage: 'https://saavn.dev/api/search/albums?query=hindi',
@@ -300,8 +303,8 @@ fetchData('homepage')
 
 
                                                 resultImage.src = song.image[2].url; // Using the 500x500 image link
-                                                // musicimage.src = result.image[2].link; // Using the 500x500 image link
-                                                // musictitle.textContent = `${result.name}`;
+                                                musicimage.src = song.image[2].url; // Using the 500x500 image link
+                                                musictitle.textContent = `${song.name}`;
                                                 // const songName = decodeHTMLEntities(result.name);
 
                                                 resultName.textContent = songName;
@@ -354,8 +357,8 @@ fetchData('homepage')
                                                 if (lastDownloadUrl) {
                                                     // Set the last download URL as the src attribute for the audio element
                                                     music.src = lastDownloadUrl.url;
-                                                    // musictitle.textContent = `${songName}`;
-                                                    // musicimage.src = songImage;
+                                                    musictitle.textContent = `${songName}`;
+                                                    musicimage.src = songImage;
                                                     playfunc();
 
 
@@ -618,8 +621,8 @@ fetchData('homepage2')
 
 
                                                 resultImage.src = song.image[2].url; // Using the 500x500 image link
-                                                // musicimage.src = result.image[2].link; // Using the 500x500 image link
-                                                // musictitle.textContent = `${result.name}`;
+                                                musicimage.src = song.image[2].url; // Using the 500x500 image link
+                                                musictitle.textContent = `${song.name}`;
                                                 // const songName = decodeHTMLEntities(result.name);
 
                                                 resultName.textContent = songName;
@@ -672,8 +675,8 @@ fetchData('homepage2')
                                                 if (lastDownloadUrl) {
                                                     // Set the last download URL as the src attribute for the audio element
                                                     music.src = lastDownloadUrl.url;
-                                                    // musictitle.textContent = `${songName}`;
-                                                    // musicimage.src = songImage;
+                                                    musictitle.textContent = `${songName}`;
+                                                    musicimage.src = songImage;
                                                     playfunc();
 
 
@@ -936,8 +939,8 @@ fetchData('homepage3')
 
 
                                                 resultImage.src = song.image[2].url; // Using the 500x500 image link
-                                                // musicimage.src = result.image[2].link; // Using the 500x500 image link
-                                                // musictitle.textContent = `${result.name}`;
+                                                musicimage.src = song.image[2].url; // Using the 500x500 image link
+                                                musictitle.textContent = `${song.name}`;
                                                 // const songName = decodeHTMLEntities(result.name);
 
                                                 resultName.textContent = songName;
@@ -990,8 +993,8 @@ fetchData('homepage3')
                                                 if (lastDownloadUrl) {
                                                     // Set the last download URL as the src attribute for the audio element
                                                     music.src = lastDownloadUrl.url;
-                                                    // musictitle.textContent = `${songName}`;
-                                                    // musicimage.src = songImage;
+                                                    musictitle.textContent = `${songName}`;
+                                                    musicimage.src = songImage;
                                                     playfunc();
 
 
@@ -1276,8 +1279,8 @@ searchInput.addEventListener('input', () => {
 
 
                                                         resultImage.src = recom.image[2].link; // Using the 500x500 image link
-                                                        // musicimage.src = result.image[2].link; // Using the 500x500 image link
-                                                        // musictitle.textContent = `${result.name}`;
+                                                        musicimage.src = recom.image[2].link; // Using the 500x500 image link
+                                                        musictitle.textContent = `${recom.name}`;
                                                         // const songName = decodeHTMLEntities(result.name);
 
                                                         resultName.textContent = songName;
@@ -1578,9 +1581,9 @@ searchInput.addEventListener('input', () => {
                                                         artistsdiv.appendChild(artistsList);
 
 
-                                                        resultImage.src = forwards.image[2].link; // Using the 500x500 image link
-                                                        // musicimage.src = result.image[2].link; // Using the 500x500 image link
-                                                        // musictitle.textContent = `${result.name}`;
+                                                        resultImage.src = forwards.image[2].url; // Using the 500x500 image url
+                                                        musicimage.src = forwards.image[2].url; // Using the 500x500 image link
+                                                        musictitle.textContent = `${forwards.name}`;
                                                         // const songName = decodeHTMLEntities(result.name);
 
                                                         resultName.textContent = songName;
@@ -1684,8 +1687,8 @@ searchInput.addEventListener('input', () => {
 
 
                                 resultImage.src = result.image[2].url; // Using the 500x500 image link
-                                // musicimage.src = result.image[2].link; // Using the 500x500 image link
-                                // musictitle.textContent = `${result.name}`;
+                                musicimage.src = result.image[2].url; // Using the 500x500 image link
+                                musictitle.textContent = `${result.name}`;
                                 const songName = decodeHTMLEntities(result.name);
 
                                 resultName.textContent = songName;
@@ -1836,3 +1839,31 @@ music.addEventListener("timeupdate", function () {
     // total_duration.innerHTML = durationMinutes + ":" + `0${durationSeconds}`
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// UX codes 
+shift.addEventListener('click', () => {
+    shift_m_p.classList.toggle('active');
+});

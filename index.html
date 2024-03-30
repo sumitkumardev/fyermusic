@@ -11,7 +11,9 @@
 
 <body>
     <div class="albums">
-        <div class="title"><h2>Trending</h2></div>
+        <div class="title">
+            <h2>Trending</h2>
+        </div>
         <div id="albumL" class="x-scroll albumsong"></div>
         <div id="albumL2" class="x-scroll albumsong"></div>
         <div id="albumL3" class="x-scroll albumsong"></div>
@@ -38,10 +40,13 @@
             <div id="searchResults"></div>
             <div id="searchResultD"></div>
             <div id="reco"></div>
-            <div class="cond"><p class="para">Dev by <a href="https://github.com/sumitkumardev">Sumit</a></p><p class="para"><a href="https://github.com/sumitkolhe/jiosaavn-api">Unofficial,</a> Personal use only
-            </p></div>
+            <div class="cond">
+                <p class="para">Dev by <a href="https://github.com/sumitkumardev">Sumit</a></p>
+                <p class="para"><a href="https://github.com/sumitkolhe/jiosaavn-api">Unofficial,</a> Personal use only
+                </p>
             </div>
         </div>
+    </div>
     </div>
 
 
@@ -49,9 +54,26 @@
     <div class="musicP">
         <div class="songp">
             <div class="audioI">
-                <img id="audioimage" class="album-image" />
+                <img id="audioimage" class="album-image">
             </div>
-            <h4 id="audiotitle" class="song-name"></h4>
+
+            <div class="playerContext">
+                <h4 id="audiotitle" class="song-name"></h4>
+            </div>
+
+
+            <div class="rp resetplayer"><button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101"
+                        id="cross">
+                        <path
+                            d="M83.9 17.1c-.9-.9-2.5-.9-3.4 0l-30 30-30-30c-.9-.9-2.5-.9-3.4 0s-.9 2.5 0 3.4l30 30-30 30c-.9.9-.9 2.5 0 3.4.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7l30-30 30 30c.5.5 1.1.7 1.7.7.6 0 1.2-.2 1.7-.7.9-.9.9-2.5 0-3.4l-30-30 30-30c.9-.9.9-2.4 0-3.4z">
+                        </path>
+                    </svg></button></div>
+            <div class="sp switchplayer" id="shift"><button><svg xmlns="http://www.w3.org/2000/svg"
+                        enable-background="new 0 0 32 32" viewBox="0 0 32 32" id="switch">
+                        <path
+                            d="M14.30273.61464c-.56104-.23389-1.20654-.104-1.63477.3252L5.68506 7.92275c-.58594.58545-.58594 1.53565 0 2.12109.58594.58594 1.53516.58594 2.12109 0l4.42236-4.42236v24.37891c0 .82861.67139 1.5 1.5 1.5s1.5-.67139 1.5-1.5v-28C15.22852 1.39345 14.86328.84657 14.30273.61464zM26.31494 21.95692c-.58594-.58594-1.53516-.58594-2.12109 0l-4.42236 4.42236V2.00038c0-.82861-.67139-1.5-1.5-1.5s-1.5.67139-1.5 1.5v28c0 .60693.36523 1.15381.92578 1.38574.18555.07715.38086.11426.57373.11426.39063 0 .77441-.15234 1.06104-.43945l6.98291-6.98291C26.90088 23.49257 26.90088 22.54237 26.31494 21.95692z">
+                        </path>
+                    </svg></button></div>
         </div>
         <audio id="audiosrc">
             Your browser does not support the audio element.

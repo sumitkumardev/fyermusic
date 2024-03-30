@@ -253,6 +253,8 @@ ul.artistL li {
     border-radius: 1rem 1rem 0 0;
     box-shadow: 0 0 0px 1px rgb(0 0 0 / 10%);
     z-index: 10;
+    transform: translateY(100px);
+    transition: all .4s ease;
 }
 
 .music-controls {
@@ -541,4 +543,59 @@ input[type="range"]:active::-moz-range-progress {
 
 input[type="range"]:disabled::-moz-range-thumb {
     cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* rough codes */
+
+
+img#audioimage {
+    width: 50px;
+    border-radius: 1rem;
+}
+
+.songp {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-block: 10px;
+}
+
+button {
+    all: unset;
+    display: flex;
+}
+
+.resetplayer {
+    display: flex;
+    margin-left: auto;
+}
+
+.songp .rp svg, .songp .sp svg {
+    height: 20px;
+}
+
+.playerContext {
+    margin-left: 10px;
+}
+.active{
+    transform: translateY(0);
 }
