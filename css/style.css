@@ -247,7 +247,7 @@ ul.artistL li {
     padding-inline: 20px;
     border-radius: 1rem 1rem 0 0;
     box-shadow: 0 0 0px 1px rgb(0 0 0 / 10%);
-    transition: all .4s ease;
+    /* transition: all .4s ease; */
 }
 
 .music-controls {

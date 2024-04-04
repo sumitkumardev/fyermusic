@@ -139,7 +139,13 @@ const observer = new MutationObserver((mutationsList) => {
         // Check if the mutation type is "childList" and the target element is "searchResultD"
         if (mutation.type === 'childList' && mutation.target.id === 'searchResultD') {
             console.log('mutation observed');
+            swipeEl.style.transition = 'all .3s ease'; // Add transition property
             swipeEl.style.marginTop = '-100px';
+
+            setTimeout(function() {
+                swipeEl.style.transition = ''; // Remove transition property
+            }, 300); // Adjust the timeout value as needed
+
             // Disconnect the observer after the first mutation is observed
             observer.disconnect();
         }
