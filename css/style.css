@@ -621,6 +621,7 @@ button {
     margin-top: 100px;
     float: left;
     max-height: calc(100vh - 100px);
+    overflow: hidden;
   }
   .swipe-bar.anim {
     transition: all 0.3s;
@@ -639,17 +640,40 @@ button {
     width: 100%;
     position: relative;
     min-height: 80px;
-
+    z-index: 3;
   }
   .top-swipe:before {
     content: "";
     position: absolute;
     left: 50%;
-    background-color: #ccc;
+    background-color: #faf9ff;
     top: 7px;
     border-radius: 3px;
     width: 36px;
     height: 5px;
     margin-left: -18px;
   }
+  /* date 12/5/2024 */
+
   
+
+div#reco {
+    position: relative;
+    z-index: 2;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.bgb {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    filter: blur(50px);
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    background-position: center;
+}

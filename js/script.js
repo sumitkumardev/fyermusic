@@ -17,6 +17,8 @@ let current_time = document.getElementById("current-time");
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 const searchResultD = document.getElementById('searchResultD');
+// direct download "Ddownload" - music
+const Ddownload = document.getElementById('loadbtn');
 const recommendD = document.getElementById('reco');
 // foward next
 const forwardN = document.getElementById('next');
@@ -27,6 +29,11 @@ const previousN = document.getElementById('prev');
 const shift = document.getElementById("shift");
 // shift_music_player
 const shift_m_p = document.querySelector(".musicP");
+
+
+// music palayer background blur image
+
+var bgb = document.querySelector('.bgb');
 
 const apiEndpoints = {
     homepage: 'https://saavn.dev/api/search/albums?query=hindi',
@@ -185,6 +192,7 @@ fetchData('homepage')
 
                                 if (firstSong && firstSong.image && firstSong.image.length > 1) {
                                     const songImage = firstSong.image[2].url; // Using the first image link
+                                    bgb.style.backgroundImage = `url(${firstSong.image[1].url})`;
 
                                     console.log(songImage);
 
@@ -303,6 +311,8 @@ fetchData('homepage')
 
 
                                                 resultImage.src = song.image[2].url; // Using the 500x500 image link
+                                                bgb.style.backgroundImage = `url(${song.image[1].url})`;
+
                                                 // musicimage.src = song.image[2].url; // Using the 500x500 image link
                                                 // musictitle.textContent = `${song.name}`;
                                                 // const songName = decodeHTMLEntities(result.name);
@@ -503,6 +513,7 @@ fetchData('homepage2')
 
                                 if (firstSong && firstSong.image && firstSong.image.length > 1) {
                                     const songImage = firstSong.image[2].url; // Using the first image link
+                                    bgb.style.backgroundImage = `url(${firstSong.image[1].url})`;
 
                                     console.log(songImage);
 
@@ -621,6 +632,8 @@ fetchData('homepage2')
 
 
                                                 resultImage.src = song.image[2].url; // Using the 500x500 image link
+                                                bgb.style.backgroundImage = `url(${song.image[1].url})`;
+
                                                 // musicimage.src = song.image[2].url; // Using the 500x500 image link
                                                 // musictitle.textContent = `${song.name}`;
                                                 // const songName = decodeHTMLEntities(result.name);
@@ -821,6 +834,7 @@ fetchData('homepage3')
 
                                 if (firstSong && firstSong.image && firstSong.image.length > 1) {
                                     const songImage = firstSong.image[2].url; // Using the first image link
+                                    bgb.style.backgroundImage = `url(${firstSong.image[1].url})`;
 
                                     console.log(songImage);
 
@@ -939,6 +953,8 @@ fetchData('homepage3')
 
 
                                                 resultImage.src = song.image[2].url; // Using the 500x500 image link
+                                                bgb.style.backgroundImage = `url(${song.image[1].url})`;
+
                                                 // musicimage.src = song.image[2].url; // Using the 500x500 image link
                                                 // musictitle.textContent = `${song.name}`;
                                                 // const songName = decodeHTMLEntities(result.name);
@@ -1169,6 +1185,7 @@ searchInput.addEventListener('input', () => {
 
                                                     const artistsList = document.createElement('ul');
                                                     artistsList.classList.add('artistL');
+                                                    //  the old one structure as per old JSON structure of api
 
                                                     // const artists = recom.primaryArtists.split(', '); // Split the artist names by comma and space
                                                     // artists.forEach(artistName => {
@@ -1177,13 +1194,15 @@ searchInput.addEventListener('input', () => {
                                                     //     artistsList.appendChild(artistListItem);
                                                     // });
 
-
-                                                    artists.forEach(artist => {
+                                                    // Loop through each artist in the primary array
+                                                    recom.artists.primary.forEach(artist => {
                                                         const artistName = decodeHTMLEntities(artist.name);
                                                         const artistListItem = document.createElement('li');
                                                         artistListItem.textContent = artistName;
                                                         artistsList.appendChild(artistListItem);
                                                     });
+
+
 
 
 
@@ -1198,6 +1217,8 @@ searchInput.addEventListener('input', () => {
                                                     recoT.classList.add('song-image');
                                                     recoT.src = recom.image[1].url;
 
+
+                                                    // Create a container for the song thumbnail
                                                     const recoThumb = document.createElement('div');
                                                     recoThumb.classList.add('thumb');
 
@@ -1226,6 +1247,7 @@ searchInput.addEventListener('input', () => {
                                                             // Set the last download URL as the src attribute for the audio element
                                                             const audioElement = document.getElementById('audiosrc');
                                                             audioElement.src = lastDownloadUrl.url;
+                                                            Ddownload.href = lastDownloadUrl.url;
                                                             audioElement.play(); // Auto-play the audio
                                                             playfunc();
                                                         }
@@ -1294,6 +1316,8 @@ searchInput.addEventListener('input', () => {
 
 
                                                         resultImage.src = recom.image[2].url; // Using the 500x500 image link
+                                                        bgb.style.backgroundImage = `url(${recom.image[1].url})`;
+
                                                         // musicimage.src = recom.image[2].link; // Using the 500x500 image link
                                                         // musictitle.textContent = `${recom.name}`;
                                                         // const songName = decodeHTMLEntities(result.name);
@@ -1522,7 +1546,9 @@ searchInput.addEventListener('input', () => {
                                                         artistsdiv.appendChild(artistsList);
 
 
+
                                                         resultImage.src = forwards.image[2].url; // Using the 500x500 image url
+                                                        bgb.style.backgroundImage = `url(${forwards.image[1].url})`;
                                                         // musicimage.src = forwards.image[2].url; // Using the 500x500 image link
                                                         // musictitle.textContent = `${forwards.name}`;
                                                         // const songName = decodeHTMLEntities(result.name);
@@ -1558,6 +1584,7 @@ searchInput.addEventListener('input', () => {
 
                                                         // Play the next or previous song
                                                         music.src = lastDownloadUrl.url;
+                                                        Ddownload.href = lastDownloadUrl.url;
                                                         playfunc();
                                                     });
                                             }
@@ -1618,6 +1645,8 @@ searchInput.addEventListener('input', () => {
 
 
                                 resultImage.src = result.image[2].url; // Using the 500x500 image link
+                                bgb.style.backgroundImage = `url(${result.image[1].url})`;
+
                                 // musicimage.src = result.image[2].url; // Using the 500x500 image link
                                 // musictitle.textContent = `${result.name}`;
                                 const songName = decodeHTMLEntities(result.name);
@@ -1650,6 +1679,7 @@ searchInput.addEventListener('input', () => {
                                 if (lastDownloadUrl) {
                                     const audioElement = document.getElementById('audiosrc');
                                     music.src = lastDownloadUrl.url;
+                                    Ddownload.href = lastDownloadUrl.url;
                                     music.play(); // Auto-play the audio
                                     playfunc();
                                 }

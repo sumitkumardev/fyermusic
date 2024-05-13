@@ -1,4 +1,5 @@
 var swipeEl = document.getElementById('swipe-wrap');
+
 var mcSwipe = new Hammer.Manager(swipeEl);
 
 var SWIPE_PLAYER_HEIGHT = window.innerHeight - 100;
