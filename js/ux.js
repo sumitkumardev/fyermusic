@@ -39,7 +39,7 @@ function showNow(elem) {
     elem.classList.remove("hide");
     elem.classList.add("show");
     // var topPos = - window.innerHeight + 350;
-    var topPos = -400;
+    var topPos = -500;
     elem.style.transform = 'translate3d(0,' + topPos + 'px, 0)';
     lastPosY = getTranslate3d(elem.style.transform)[1];
 }

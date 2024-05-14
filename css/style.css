@@ -172,10 +172,11 @@ ul.artistL li {
     width: 100%;
     height: 100%;
     display: flex;
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px;
     position: relative;
     overflow: hidden;
     box-shadow: -5px 5px 10px rgb(0 0 0 / 10%);
+    /* cursor: unset; */
 }
 .albumS .songI:before {
     content: '';
@@ -255,7 +256,9 @@ ul.artistL li {
     align-items: center;
     justify-content: space-evenly;
 }
-
+.music-controls svg{
+    fill: #fefefe;
+}
 input#seek {
     width: 100%;
 }
@@ -264,6 +267,7 @@ input#seek {
     display: flex;
     justify-content: space-between;
     font-size: 13px;
+    color: #fefefe;
 }
 
 input#searchInput {
@@ -323,19 +327,15 @@ svg.line {
     border-radius: 1rem;
     position: relative;
     overflow: hidden;
+    padding: 15px;
 }
 
 .albumContent {
     background: #faf9ff;
-    padding: 5px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
 }
 
-.songR .songI {
-    margin: 15px auto;
-    width: 100%;
-    height: 10rem;
-}
 
 .thumb {
     width: 50px;
@@ -401,10 +401,10 @@ input[type="range"] {
 }
 
 input[type="range"] {
-    color: #303030;
+    color: #ffffff;
     --thumb-height: 10px;
     --track-height: 0.125em;
-    --track-color: rgba(0, 0, 0, 0.2);
+    --track-color: rgba(250, 250, 250, 0.2);
     --brightness-hover: 180%;
     --brightness-down: 80%;
     --clip-edges: 0.125em;
@@ -620,7 +620,7 @@ button {
     top: 100%;
     margin-top: 100px;
     float: left;
-    max-height: calc(100vh - 100px);
+    max-height: 100%;
     overflow: hidden;
   }
   .swipe-bar.anim {
@@ -672,8 +672,9 @@ div#reco {
     width: 100%;
     height: 100%;
     left: 0;
+    border-radius: 15px 15px 0 0;
     filter: blur(50px);
-    /* background-size: cover; */
-    /* background-repeat: no-repeat; */
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
 }
