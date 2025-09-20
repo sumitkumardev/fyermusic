@@ -45,7 +45,8 @@ const apiEndpoints = {
     // albumsData: 'https://saavn.dev/albums?id=',
     albumsData: 'https://saavn.dev/api/albums?id=',
     // old https://saavn.dev/artists/ 
-    recomend: 'https://saavn.dev/api/songs',
+    recomend: 'https://saavn.dev/api/artists',
+    // https://saavn.dev/api/artists/773256/songs?page=0&sortBy=popularity&sortOrder=desc
     songurl: 'https://saavn.dev/api/songs/'
 };
 
@@ -1152,24 +1153,29 @@ searchInput.addEventListener('input', () => {
                                 // const artistIds = result.artists.primary.split(',').map(id => id.trim());
                                 const artistIds = result.artists.primary;
 
-                                const songId = result.id;
+                                // const songId = result.id;
+                                // updated on 21/09/2025
+                                const songId = result.artists.primary[0].id;
+                                // console.log("Primary artist check", songId)
                                 const songlang = result.language;
 
                                 // Construct and fetch recommendations for each artist
                                 artistIds.forEach(artistId => {
                                     //    old  // const recommendUrl = `${apiEndpoints.recomend}${artistId}/recommendations/${songId}?language=${songlang}`;
-                                    const recommendUrl = `${apiEndpoints.recomend}/${songId}/suggestions?language=${songlang}`;
+                                    // old by 2024 const recommendUrl = `${apiEndpoints.recomend}/${songId}/suggestions?language=${songlang}`;
+                                    // new custom made by artist popular songs on 21/09/2025
+                                    // https://saavn.dev/api/artists/773256/songs?page=0&sortBy=popularity&sortOrder=desc
+                                    const recommendUrl = `${apiEndpoints.recomend}/${songId}/songs?page=0&sortBy=popularity&sortOrder=desc`;
                                     console.log(recommendUrl);
 
                                     fetch(recommendUrl)
                                         .then(response => response.json())
                                         .then(recommendData => {
-                                            const reco = recommendData.data;
-
+                                            // const reco = recommendData.data;
+                                            const reco = recommendData.data.songs;
                                             if (Array.isArray(reco) && reco.length > 0) {
                                                 reco.forEach(recom => {
                                                     const songName = decodeHTMLEntities(recom.name);
-
                                                     // Create a container for each recommendation
                                                     const recoData = document.createElement('div');
                                                     recoData.classList.add('recommendData');
@@ -1371,7 +1377,10 @@ searchInput.addEventListener('input', () => {
 
                                 // const searchUrl = apiEndpoints.forwardS + encodeURIComponent(query) + '&limit=5';
                                 artistIds.forEach(artistId => {
-                                    const forwardS = `${apiEndpoints.recomend}/${songId}/suggestions?language=${songlang}`;
+                                    // old by 2024
+                                    // const forwardS = `${apiEndpoints.recomend}/${songId}/suggestions?language=${songlang}`;
+                                    // updated on 21/09/2025
+                                    const forwardS = `${apiEndpoints.recomend}/${songId}/songs?page=0&sortBy=popularity&sortOrder=desc`;
                                     console.log(forwardS);
 
 
@@ -1379,7 +1388,7 @@ searchInput.addEventListener('input', () => {
                                     fetch(forwardS)
                                         .then(response => response.json())
                                         .then(forward => {
-                                            const forwards = forward.data;
+                                            const forwards = forward.data.songs;;
 
 
                                             // Declare an index variable to keep track of the currently playing song
@@ -1708,8 +1717,25 @@ searchInput.addEventListener('input', () => {
 
 
 
+// ease-in-out 20/09/2025
+function fadeVolume(targetVolume, duration) {
+    let steps = 20; // number of steps in fade
+    let stepTime = duration / steps; // time per step
+    let currentVolume = music.volume;
+    let step = (targetVolume - currentVolume) / steps;
 
+    let fade = setInterval(() => {
+        currentVolume += step;
+        music.volume = Math.min(Math.max(currentVolume, 0), 1); // clamp 0–1
 
+        if ((step > 0 && music.volume >= targetVolume) ||
+            (step < 0 && music.volume <= targetVolume)) {
+            clearInterval(fade);
+            music.volume = targetVolume; // ensure exact final volume
+            if (targetVolume === 0) music.pause(); // pause after fade-out
+        }
+    }, stepTime);
+}
 
 
 
@@ -1723,22 +1749,25 @@ searchInput.addEventListener('input', () => {
 
 
 const playfunc = () => {
+    music.volume = 0;
     music.play();
+    fadeVolume(1, 250);
     playButton.style.display = "none";
     pauseButton.style.display = "inline-flex";
 };
 
 playButton.addEventListener('click', () => {
+    music.volume = 0;
     music.play();
-    music.volume = 1;
+    fadeVolume(1, 250);
     playButton.style.display = "none";
     pauseButton.style.display = "inline-flex";
 });
 
 // Add click event listener to the pause button
 pauseButton.addEventListener('click', () => {
-    music.pause();
-    music.volume = 0;
+    // music.pause();
+    fadeVolume(0, 250);
     playButton.style.display = "inline-flex";
     pauseButton.style.display = "none";
 });

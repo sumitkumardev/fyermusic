@@ -678,3 +678,7 @@ div#reco {
     background-repeat: no-repeat;
     background-position: center;
 }
+.downloadS a, .downloadS svg{
+    color: #fefefe;
+    fill: #fefefe;
+}
