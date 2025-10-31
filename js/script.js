@@ -36,18 +36,18 @@ const shift_m_p = document.querySelector(".musicP");
 var bgb = document.querySelector('.bgb');
 
 const apiEndpoints = {
-    homepage: 'https://saavn.dev/api/search/albums?query=hindi',
-    homepage2: 'https://saavn.dev/api/search/albums?query=punjabi',
-    homepage3: 'https://saavn.dev/api/search/albums?query=bhojpuri',
-    forwardS: 'https://saavn.dev/modules?language=',
-    search: 'https://saavn.dev/api/search/songs?query=',
-    albums: 'https://saavn.dev/api/search/albums?query=',
-    // albumsData: 'https://saavn.dev/albums?id=',
-    albumsData: 'https://saavn.dev/api/albums?id=',
-    // old https://saavn.dev/artists/ 
-    recomend: 'https://saavn.dev/api/artists',
-    // https://saavn.dev/api/artists/773256/songs?page=0&sortBy=popularity&sortOrder=desc
-    songurl: 'https://saavn.dev/api/songs/'
+    homepage: 'https://saavn.sumit.co/api/search/albums?query=hindi',
+    homepage2: 'https://saavn.sumit.co/api/search/albums?query=punjabi',
+    homepage3: 'https://saavn.sumit.co/api/search/albums?query=bhojpuri',
+    forwardS: 'https://saavn.sumit.co/modules?language=',
+    search: 'https://saavn.sumit.co/api/search/songs?query=',
+    albums: 'https://saavn.sumit.co/api/search/albums?query=',
+    // albumsData: 'https://saavn.sumit.co/albums?id=',
+    albumsData: 'https://saavn.sumit.co/api/albums?id=',
+    // old https://saavn.sumit.co/artists/ 
+    recomend: 'https://saavn.sumit.co/api/artists',
+    // https://saavn.sumit.co/api/artists/773256/songs?page=0&sortBy=popularity&sortOrder=desc
+    songurl: 'https://saavn.sumit.co/api/songs/'
 };
 
 function decodeHTMLEntities(text) {
@@ -1164,7 +1164,7 @@ searchInput.addEventListener('input', () => {
                                     //    old  // const recommendUrl = `${apiEndpoints.recomend}${artistId}/recommendations/${songId}?language=${songlang}`;
                                     // old by 2024 const recommendUrl = `${apiEndpoints.recomend}/${songId}/suggestions?language=${songlang}`;
                                     // new custom made by artist popular songs on 21/09/2025
-                                    // https://saavn.dev/api/artists/773256/songs?page=0&sortBy=popularity&sortOrder=desc
+                                    // https://saavn.sumit.co/api/artists/773256/songs?page=0&sortBy=popularity&sortOrder=desc
                                     const recommendUrl = `${apiEndpoints.recomend}/${songId}/songs?page=0&sortBy=popularity&sortOrder=desc`;
                                     console.log(recommendUrl);
 
